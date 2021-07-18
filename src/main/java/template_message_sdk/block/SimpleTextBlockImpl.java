@@ -42,7 +42,7 @@ public class SimpleTextBlockImpl implements TextBlockContract {
         return Set.copyOf(selectors.keySet());
     }
 
-    private void setTemplate(String template) {
+    public void setTemplate(String template) {
         selectors = new HashMap<>();
         var matcher = selectorPattern.matcher(template);
         while (matcher.find()) {
