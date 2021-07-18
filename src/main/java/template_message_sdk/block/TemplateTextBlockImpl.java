@@ -3,16 +3,17 @@ package template_message_sdk.block;
 import template_message_sdk.DefaultRegex;
 import template_message_sdk.editor.TextEditor;
 import template_message_sdk.writer.RegexTextWriter;
+import template_message_sdk.writer.TextWriter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TemplateTextBlockImpl implements TextBlockContract {
-    private final RegexTextWriter writer;
+    private TextWriter writer;
     private TextEditor editor;
     private final Map<String, TextBlockContract> variables = new HashMap<>();
 
-    public TemplateTextBlockImpl(RegexTextWriter writer, TextEditor editor) {
+    public TemplateTextBlockImpl(TextWriter writer, TextEditor editor) {
         this.writer = writer;
         this.editor = editor;
     }

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class RegexTextWriter {
+public class RegexTextWriter implements TextWriter {
     private final String regex;
     private final Pattern selectorPattern;
     private Map<String, String> selectors = new HashMap<>();
@@ -36,10 +36,16 @@ public class RegexTextWriter {
         return regex;
     }
 
+    public Set<String> getSelectors() {
+        return Set.copyOf(selectors.keySet());
+    }
+
+    @Override
     public String getTemplate() {
         return template;
     }
 
+    @Override
     public void setTemplate(String template) {
         selectors = new HashMap<>();
         var matcher = selectorPattern.matcher(template);
@@ -49,14 +55,12 @@ public class RegexTextWriter {
         this.template = template;
     }
 
-    public Set<String> getSelectors() {
-        return Set.copyOf(selectors.keySet());
-    }
-
+    @Override
     public RegexTextWriter copy() {
         return new RegexTextWriter(this);
     }
 
+    @Override
     public String toWriting(Map<String, String> variables, String defaultValue) {
         var result = getTemplate();
         var selectorNames = getSelectors();

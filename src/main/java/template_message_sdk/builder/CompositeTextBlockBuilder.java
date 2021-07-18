@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class CompositeTextBlockBuilder {
     protected final ConditionCheckerContract conditionChecker;
+
     private final Map<String, String> templateParts = new HashMap<>();
     private final Map<String, TextBlockContract> variables = new HashMap<>();
 
