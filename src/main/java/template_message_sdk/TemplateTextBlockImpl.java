@@ -14,16 +14,48 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     private String template = "";
     private Map<String, String> selectors = new HashMap<>();
 
-    public TemplateTextBlockImpl(TemplateTextBlockImpl template) {
-        this(template.template, template.regex, template.getEditor());
-        variables.forEach((name, variable) -> putVariable(name, variable.copy()));
-    }
-
     public TemplateTextBlockImpl(String template, String regex, TextEditor editor) {
         this.regex = regex;
         selectorPattern = Pattern.compile(regex);
         this.editor = editor;
         setTemplate(template);
+    }
+
+    public TemplateTextBlockImpl(String template) {
+        this(template, DefaultRegex.REGEX);
+    }
+
+    public TemplateTextBlockImpl(String template, String regex) {
+        this(template, regex, null);
+    }
+
+    public TemplateTextBlockImpl() {
+        this("");
+    }
+
+    public TemplateTextBlockImpl(TemplateTextBlockImpl template) {
+        this(template.template, template.regex, template.getEditor());
+        variables.forEach((name, variable) -> putVariable(name, variable.copy()));
+    }
+
+    public Set<String> getSelectors() {
+        return Set.copyOf(selectors.keySet());
+    }
+
+    public void setTemplate(String template) {
+        selectors = new HashMap<>();
+        var match = selectorPattern.matcher(template);
+        while (match.find()) {
+            selectors.put(match.group(1), match.group());
+        }
+        this.template = template;
+    }
+
+    public TextBlockContract getVariable(String name) {
+        if (name == null) {
+            return null;
+        }
+        return variables.get(name);
     }
 
     public void putVariable(String name, TextBlockContract variable) throws NullPointerException {
@@ -37,52 +69,19 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         variables.put(name, variable);
     }
 
-    public void setTemplate(String template) {
-        selectors = new HashMap<>();
-        var match = selectorPattern.matcher(template);
-        while (match.find()) {
-            selectors.put(match.group(1), match.group());
-        }
-        this.template = template;
-    }
-
-    public TemplateTextBlockImpl() {
-        this("");
-    }
-
-    public TemplateTextBlockImpl(String template) {
-        this(template, "%\\[([^%,\\s]+)\\]%");
-    }
-
-    public TemplateTextBlockImpl(String template, String regex) {
-        this(template, regex, null);
-    }
-
-    public TextBlockContract getVariable(String name) {
-        if (name == null) {
-            return null;
-        }
-        return variables.get(name);
-    }
-
     @Override
     public TextBlockContract copy() {
         return new TemplateTextBlockImpl(this);
     }
 
-    public Set<String> getSelectors() {
-        return Set.copyOf(selectors.keySet());
+    @Override
+    public TextEditor getEditor() {
+        return editor;
     }
-
 
     @Override
     public void setEditor(TextEditor editor) {
         this.editor = editor;
-    }
-
-    @Override
-    public TextEditor getEditor() {
-        return editor;
     }
 
     @Override
@@ -119,7 +118,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         for (var entry : variables.entrySet()) {
             String name = entry.getKey();
             String variable = entry.getValue();
-            if (selectorNames.contains(name)) {
+            if (!selectorNames.contains(name)) {
                 continue;
             }
 
