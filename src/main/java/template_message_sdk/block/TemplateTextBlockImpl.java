@@ -1,7 +1,7 @@
 package template_message_sdk.block;
 
-import template_message_sdk.editor.TextEditor;
-import template_message_sdk.writer.TextWriter;
+import template_message_sdk.editor.TextEditorContract;
+import template_message_sdk.writer.TextWriterContract;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,10 +9,10 @@ import java.util.Map;
 public class TemplateTextBlockImpl implements TextBlockContract {
     private final Map<String, TextBlockContract> variables = new HashMap<>();
 
-    private TextWriter writer;
-    private TextEditor editor;
+    private TextWriterContract writer;
+    private TextEditorContract editor;
 
-    public TemplateTextBlockImpl(TextWriter writer, TextEditor editor) {
+    public TemplateTextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
         this.writer = writer;
         this.editor = editor;
     }
@@ -46,22 +46,22 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     }
 
     @Override
-    public TextWriter getWriter() {
+    public TextWriterContract getWriter() {
         return writer;
     }
 
     @Override
-    public void setWriter(TextWriter writer) {
+    public void setWriter(TextWriterContract writer) {
         this.writer = writer;
     }
 
     @Override
-    public TextEditor getEditor() {
+    public TextEditorContract getEditor() {
         return editor;
     }
 
     @Override
-    public void setEditor(TextEditor editor) {
+    public void setEditor(TextEditorContract editor) {
         this.editor = editor;
     }
 
@@ -76,7 +76,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     }
 
     @Override
-    public String writeWithEditor(TextEditor editor) {
+    public String writeWithEditor(TextEditorContract editor) {
         var stringVariables = new HashMap<String, String>();
         variables.forEach((name, block) -> stringVariables.put(name, block.writeWithEditor(editor)));
 

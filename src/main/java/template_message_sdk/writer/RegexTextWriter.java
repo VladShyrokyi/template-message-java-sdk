@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class RegexTextWriter implements TextWriter {
+public class RegexTextWriter implements TextWriterContract {
     private final String regex;
     private final Pattern selectorPattern;
     private Map<String, String> selectors = new HashMap<>();

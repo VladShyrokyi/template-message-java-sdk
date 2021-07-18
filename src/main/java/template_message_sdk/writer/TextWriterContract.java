@@ -2,12 +2,12 @@ package template_message_sdk.writer;
 
 import java.util.Map;
 
-public interface TextWriter {
+public interface TextWriterContract {
     String getTemplate();
 
     void setTemplate(String template);
 
-    TextWriter copy();
+    TextWriterContract copy();
 
     String toWriting(Map<String, String> variables, String defaultValue);
 }

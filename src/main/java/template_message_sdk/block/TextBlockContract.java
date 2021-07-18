@@ -1,22 +1,22 @@
 package template_message_sdk.block;
 
-import template_message_sdk.editor.TextEditor;
-import template_message_sdk.writer.TextWriter;
+import template_message_sdk.editor.TextEditorContract;
+import template_message_sdk.writer.TextWriterContract;
 
 public interface TextBlockContract {
     TextBlockContract copy();
 
-    TextWriter getWriter();
+    TextWriterContract getWriter();
 
-    void setWriter(TextWriter writer);
+    void setWriter(TextWriterContract writer);
 
-    TextEditor getEditor();
+    TextEditorContract getEditor();
 
-    void setEditor(TextEditor editor);
+    void setEditor(TextEditorContract editor);
 
     String write();
 
-    String writeWithEditor(TextEditor editor);
+    String writeWithEditor(TextEditorContract editor);
 
     String writeWithoutEditor();
 }
