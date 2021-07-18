@@ -17,9 +17,9 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         this.editor = editor;
     }
 
-    public TemplateTextBlockImpl(TemplateTextBlockImpl template) {
-        this(template.getWriter().copy(), template.getEditor());
-        variables.forEach((name, variable) -> putVariable(name, variable.copy()));
+    public TemplateTextBlockImpl(TemplateTextBlockImpl block) {
+        this(block.getWriter().copy(), block.getEditor().copy());
+        block.variables.forEach((name, variable) -> putVariable(name, variable.copy()));
     }
 
     public TextBlockContract getVariable(String name) {
