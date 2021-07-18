@@ -57,7 +57,7 @@ public class RegexTextWriter {
         return new RegexTextWriter(this);
     }
 
-    public String write(Map<String, String> variables, String defaultValue) {
+    public String toWriting(Map<String, String> variables, String defaultValue) {
         var result = getTemplate();
         var selectorNames = getSelectors();
 

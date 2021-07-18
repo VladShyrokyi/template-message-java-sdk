@@ -80,18 +80,18 @@ public class SimpleTextBlockImpl implements TextBlockContract {
     @Override
     public String write() {
         return editor != null
-               ? editor.toEditing(writer.write(Map.copyOf(variables), ""))
-               : writer.write(Map.copyOf(variables), "");
+               ? editor.toEditing(writer.toWriting(Map.copyOf(variables), ""))
+               : writer.toWriting(Map.copyOf(variables), "");
     }
 
     @Override
     public String writeWithEditor(TextEditor editor) {
-        return editor.toEditing(writer.write(Map.copyOf(variables), ""));
+        return editor.toEditing(writer.toWriting(Map.copyOf(variables), ""));
     }
 
     @Override
     public String writeWithoutEditor() {
-        return editor.toEditing(writer.write(Map.copyOf(variables), ""));
+        return editor.toEditing(writer.toWriting(Map.copyOf(variables), ""));
     }
 
 }

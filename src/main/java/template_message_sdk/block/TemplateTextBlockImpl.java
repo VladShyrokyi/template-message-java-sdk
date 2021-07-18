@@ -78,8 +78,8 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         variables.forEach((name, block) -> stringVariables.put(name, block.write()));
 
         return editor != null
-               ? editor.toEditing(writer.write(stringVariables, ""))
-               : writer.write(stringVariables, "");
+               ? editor.toEditing(writer.toWriting(stringVariables, ""))
+               : writer.toWriting(stringVariables, "");
     }
 
     @Override
@@ -87,7 +87,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         var stringVariables = new HashMap<String, String>();
         variables.forEach((name, block) -> stringVariables.put(name, block.writeWithEditor(editor)));
 
-        return editor.toEditing(writer.write(stringVariables, ""));
+        return editor.toEditing(writer.toWriting(stringVariables, ""));
     }
 
     @Override
@@ -95,6 +95,6 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         var stringVariables = new HashMap<String, String>();
         variables.forEach((name, block) -> stringVariables.put(name, block.writeWithoutEditor()));
 
-        return writer.write(stringVariables, "");
+        return writer.toWriting(stringVariables, "");
     }
 }
