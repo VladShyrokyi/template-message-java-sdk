@@ -2,26 +2,24 @@ package template_message_sdk.block;
 
 import template_message_sdk.DefaultRegex;
 import template_message_sdk.editor.TextEditor;
+import template_message_sdk.writer.RegexTextWriter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class TemplateTextBlockImpl implements TextBlockContract {
-    private final String regex;
-    private final Pattern selectorPattern;
+    private final RegexTextWriter writer;
+    private TextEditor editor;
     private final Map<String, TextBlockContract> variables = new HashMap<>();
 
-    public TextEditor editor;
-    private String template = "";
-    private Map<String, String> selectors = new HashMap<>();
+    public TemplateTextBlockImpl(RegexTextWriter writer, TextEditor editor) {
+        this.writer = writer;
+        this.editor = editor;
+    }
 
     public TemplateTextBlockImpl(String template, String regex, TextEditor editor) {
-        this.regex = regex;
-        selectorPattern = Pattern.compile(regex);
+        writer = new RegexTextWriter(template, regex);
         this.editor = editor;
-        setTemplate(template);
     }
 
     public TemplateTextBlockImpl(String template, String regex) {
@@ -37,21 +35,8 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     }
 
     public TemplateTextBlockImpl(TemplateTextBlockImpl template) {
-        this(template.template, template.regex, template.getEditor());
+        this(template.writer.copy(), template.getEditor());
         variables.forEach((name, variable) -> putVariable(name, variable.copy()));
-    }
-
-    public Set<String> getSelectors() {
-        return Set.copyOf(selectors.keySet());
-    }
-
-    public void setTemplate(String template) {
-        selectors = new HashMap<>();
-        var match = selectorPattern.matcher(template);
-        while (match.find()) {
-            selectors.put(match.group(1), match.group());
-        }
-        this.template = template;
     }
 
     public TextBlockContract getVariable(String name) {
@@ -93,8 +78,8 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         variables.forEach((name, block) -> stringVariables.put(name, block.write()));
 
         return editor != null
-               ? editor.toEditing(write(stringVariables, ""))
-               : write(stringVariables, "");
+               ? editor.toEditing(writer.write(stringVariables, ""))
+               : writer.write(stringVariables, "");
     }
 
     @Override
@@ -102,7 +87,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         var stringVariables = new HashMap<String, String>();
         variables.forEach((name, block) -> stringVariables.put(name, block.writeWithEditor(editor)));
 
-        return editor.toEditing(write(stringVariables, ""));
+        return editor.toEditing(writer.write(stringVariables, ""));
     }
 
     @Override
@@ -110,36 +95,6 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         var stringVariables = new HashMap<String, String>();
         variables.forEach((name, block) -> stringVariables.put(name, block.writeWithoutEditor()));
 
-        return write(stringVariables, "");
-    }
-
-    public String write(Map<String, String> variables, String defaultValue) {
-        var result = template;
-        var selectorNames = getSelectors();
-
-        // Replace selectors on variables
-        for (var entry : variables.entrySet()) {
-            String name = entry.getKey();
-            String variable = entry.getValue();
-            if (!selectorNames.contains(name)) {
-                continue;
-            }
-
-            var selector = selectors.get(name);
-            result = result.replaceAll(selector, variable);
-            selectorNames.remove(name);
-        }
-
-        if (!selectorPattern.matcher(result).find()) {
-            return result;
-        }
-
-        // Replace selectors on default value
-        for (String name : selectorNames) {
-            var selector = selectors.get(name);
-            result = result.replaceAll(selector, defaultValue);
-        }
-
-        return result;
+        return writer.write(stringVariables, "");
     }
 }

@@ -2,26 +2,24 @@ package template_message_sdk.block;
 
 import template_message_sdk.DefaultRegex;
 import template_message_sdk.editor.TextEditor;
+import template_message_sdk.writer.RegexTextWriter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class SimpleTextBlockImpl implements TextBlockContract {
-    private final String regex;
-    private final Pattern selectorPattern;
+    private final RegexTextWriter writer;
+    private TextEditor editor;
     private final Map<String, String> variables = new HashMap<>();
 
-    private TextEditor editor;
-    private String template = "";
-    private Map<String, String> selectors = new HashMap<>();
+    public SimpleTextBlockImpl(RegexTextWriter writer, TextEditor editor) {
+        this.writer = writer;
+        this.editor = editor;
+    }
 
     public SimpleTextBlockImpl(String template, String regex, TextEditor editor) {
-        this.regex = regex;
-        selectorPattern = Pattern.compile(regex);
+        writer = new RegexTextWriter(template, regex);
         this.editor = editor;
-        setTemplate(template);
     }
 
     public SimpleTextBlockImpl(String template, String regex) {
@@ -32,6 +30,11 @@ public class SimpleTextBlockImpl implements TextBlockContract {
         this(template, DefaultRegex.REGEX);
     }
 
+    public SimpleTextBlockImpl(SimpleTextBlockImpl block) {
+        this(block.writer, block.editor);
+        block.variables.forEach(this::putVariable);
+    }
+
     public static SimpleTextBlockImpl valueOf(String template) {
         return new SimpleTextBlockImpl(template);
     }
@@ -40,19 +43,6 @@ public class SimpleTextBlockImpl implements TextBlockContract {
         var block = new SimpleTextBlockImpl(template);
         variables.forEach(block::putVariable);
         return block;
-    }
-
-    public Set<String> getSelectors() {
-        return Set.copyOf(selectors.keySet());
-    }
-
-    public void setTemplate(String template) {
-        selectors = new HashMap<>();
-        var matcher = selectorPattern.matcher(template);
-        while (matcher.find()) {
-            selectors.put(matcher.group(1), matcher.group());
-        }
-        this.template = template;
     }
 
     public String getVariable(String name) {
@@ -74,9 +64,7 @@ public class SimpleTextBlockImpl implements TextBlockContract {
 
     @Override
     public TextBlockContract copy() {
-        var block = new SimpleTextBlockImpl(template, regex, editor);
-        variables.forEach(block::putVariable);
-        return block;
+        return new SimpleTextBlockImpl(this);
     }
 
     @Override
@@ -92,47 +80,18 @@ public class SimpleTextBlockImpl implements TextBlockContract {
     @Override
     public String write() {
         return editor != null
-               ? editor.toEditing(write(Map.copyOf(variables), ""))
-               : write(Map.copyOf(variables), "");
+               ? editor.toEditing(writer.write(Map.copyOf(variables), ""))
+               : writer.write(Map.copyOf(variables), "");
     }
 
     @Override
     public String writeWithEditor(TextEditor editor) {
-        return editor.toEditing(write(Map.copyOf(variables), ""));
+        return editor.toEditing(writer.write(Map.copyOf(variables), ""));
     }
 
     @Override
     public String writeWithoutEditor() {
-        return editor.toEditing(write(Map.copyOf(variables), ""));
+        return editor.toEditing(writer.write(Map.copyOf(variables), ""));
     }
 
-    public String write(Map<String, String> variables, String defaultValue) {
-        var result = template;
-        var selectorNames = getSelectors();
-
-        // Replace selectors on variables
-        for (Map.Entry<String, String> entry : variables.entrySet()) {
-            String name = entry.getKey();
-            String variable = entry.getValue();
-            if (!selectorNames.contains(name)) {
-                continue;
-            }
-
-            var selector = selectors.get(name);
-            result = result.replaceAll(selector, variable);
-            selectorNames.remove(name);
-        }
-
-        if (!selectorPattern.matcher(result).find()) {
-            return result;
-        }
-
-        // Replace selectors on default value
-        for (String name : selectorNames) {
-            var selector = selectors.get(name);
-            result = result.replaceAll(selector, defaultValue);
-        }
-
-        return result;
-    }
 }
