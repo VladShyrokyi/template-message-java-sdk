@@ -24,8 +24,12 @@ public class SimpleTextBlockImpl implements TextBlockContract {
         setTemplate(template);
     }
 
+    public SimpleTextBlockImpl(String template, String regex) {
+        this(template, regex, null);
+    }
+
     public SimpleTextBlockImpl(String template) {
-        this(template, DefaultRegex.REGEX, null);
+        this(template, DefaultRegex.REGEX);
     }
 
     public static SimpleTextBlockImpl valueOf(String template) {

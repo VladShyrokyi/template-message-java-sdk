@@ -24,12 +24,12 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         setTemplate(template);
     }
 
-    public TemplateTextBlockImpl(String template) {
-        this(template, DefaultRegex.REGEX);
-    }
-
     public TemplateTextBlockImpl(String template, String regex) {
         this(template, regex, null);
+    }
+
+    public TemplateTextBlockImpl(String template) {
+        this(template, DefaultRegex.REGEX);
     }
 
     public TemplateTextBlockImpl() {
