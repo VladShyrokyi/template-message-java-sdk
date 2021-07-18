@@ -16,8 +16,8 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
     public CompositeTextBlockBuilder dynamicPut(TextBlockContract block) {
         var variableName = dynamicVariableName + "_" + dynamicVariableCounter;
         var templatePart = dynamicVariableCounter == 0
-                           ? "%[" + variableName + "]%"
-                           : separator + "%[" + variableName + "]%";
+                           ? DefaultRegex.getRegexSelector(variableName)
+                           : separator + DefaultRegex.getRegexSelector(variableName);
         var checkedBlock = new TemplateTextBlockImpl(templatePart);
         checkedBlock.putVariable(variableName, block);
         if (!conditionChecker.Check(checkedBlock)) {
