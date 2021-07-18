@@ -1,9 +1,9 @@
 package template_message_sdk.builder;
 
-import template_message_sdk.block.SimpleTextBlockImpl;
 import template_message_sdk.block.TemplateTextBlockImpl;
 import template_message_sdk.block.TextBlockContract;
 import template_message_sdk.checker.ConditionCheckerContract;
+import template_message_sdk.factory.TextBlockFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class CompositeTextBlockBuilder {
     }
 
     public CompositeTextBlockBuilder add(String name, String templatePart) {
-        var block = SimpleTextBlockImpl.valueOf(templatePart);
+        var block = TextBlockFactory.createSimpleEmptyWith(templatePart);
         if (!conditionChecker.Check(block)) {
             return this;
         }
@@ -47,8 +47,6 @@ public class CompositeTextBlockBuilder {
                 template.append(templateParts.get(name));
             }
         }
-        var block = new TemplateTextBlockImpl(template.toString());
-        variables.forEach(block::putVariable);
-        return block;
+        return TextBlockFactory.createTemplateWith(template.toString(), variables);
     }
 }

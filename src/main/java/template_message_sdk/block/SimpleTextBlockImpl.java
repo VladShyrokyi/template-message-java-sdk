@@ -1,8 +1,6 @@
 package template_message_sdk.block;
 
-import template_message_sdk.DefaultRegex;
 import template_message_sdk.editor.TextEditor;
-import template_message_sdk.writer.RegexTextWriter;
 import template_message_sdk.writer.TextWriter;
 
 import java.util.HashMap;
@@ -19,32 +17,9 @@ public class SimpleTextBlockImpl implements TextBlockContract {
         this.editor = editor;
     }
 
-    public SimpleTextBlockImpl(String template, String regex, TextEditor editor) {
-        writer = new RegexTextWriter(template, regex);
-        this.editor = editor;
-    }
-
-    public SimpleTextBlockImpl(String template, String regex) {
-        this(template, regex, null);
-    }
-
-    public SimpleTextBlockImpl(String template) {
-        this(template, DefaultRegex.REGEX);
-    }
-
     public SimpleTextBlockImpl(SimpleTextBlockImpl block) {
         this(block.getWriter().copy(), block.getEditor().copy());
         block.variables.forEach(this::putVariable);
-    }
-
-    public static SimpleTextBlockImpl valueOf(String template) {
-        return new SimpleTextBlockImpl(template);
-    }
-
-    public static SimpleTextBlockImpl valueOf(String template, Map<String, String> variables) {
-        var block = new SimpleTextBlockImpl(template);
-        variables.forEach(block::putVariable);
-        return block;
     }
 
     public String getVariable(String name) {

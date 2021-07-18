@@ -1,8 +1,6 @@
 package template_message_sdk.block;
 
-import template_message_sdk.DefaultRegex;
 import template_message_sdk.editor.TextEditor;
-import template_message_sdk.writer.RegexTextWriter;
 import template_message_sdk.writer.TextWriter;
 
 import java.util.HashMap;
@@ -17,23 +15,6 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     public TemplateTextBlockImpl(TextWriter writer, TextEditor editor) {
         this.writer = writer;
         this.editor = editor;
-    }
-
-    public TemplateTextBlockImpl(String template, String regex, TextEditor editor) {
-        writer = new RegexTextWriter(template, regex);
-        this.editor = editor;
-    }
-
-    public TemplateTextBlockImpl(String template, String regex) {
-        this(template, regex, null);
-    }
-
-    public TemplateTextBlockImpl(String template) {
-        this(template, DefaultRegex.REGEX);
-    }
-
-    public TemplateTextBlockImpl() {
-        this("");
     }
 
     public TemplateTextBlockImpl(TemplateTextBlockImpl template) {
