@@ -18,14 +18,28 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
         this.separator = separator;
     }
 
-    public CompositeTextBlockBuilder dynamicPut(TextBlockContract block) {
+    public DynamicCompositeTextBlockBuilder(String dynamicVariableName, String separator) {
+        this(null, dynamicVariableName, separator);
+    }
+
+    @Override
+    public DynamicCompositeTextBlockBuilder add(String name, String templatePart) {
+        return (DynamicCompositeTextBlockBuilder) super.add(name, templatePart);
+    }
+
+    @Override
+    public DynamicCompositeTextBlockBuilder put(String name, TextBlockContract variable) {
+        return (DynamicCompositeTextBlockBuilder) super.put(name, variable);
+    }
+
+    public DynamicCompositeTextBlockBuilder dynamicPut(TextBlockContract block) {
         var variableName = dynamicVariableName + "_" + dynamicVariableCounter;
         var templatePart = dynamicVariableCounter == 0
                            ? DefaultRegex.createSelector(variableName)
                            : separator + DefaultRegex.createSelector(variableName);
         var checkedBlock = TextBlockFactory.createTemplateEmptyWith(templatePart);
         checkedBlock.putVariable(variableName, block);
-        if (!conditionChecker.Check(checkedBlock)) {
+        if (isNotContinueBuild(checkedBlock)) {
             return this;
         }
         add(variableName, templatePart).put(variableName, block);

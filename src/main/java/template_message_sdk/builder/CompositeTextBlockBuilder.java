@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CompositeTextBlockBuilder {
-    protected final ConditionCheckerContract conditionChecker;
+    private final ConditionCheckerContract conditionChecker;
 
     private final Map<String, String> templateParts = new HashMap<>();
     private final Map<String, TextBlockContract> variables = new HashMap<>();
@@ -18,13 +18,17 @@ public class CompositeTextBlockBuilder {
         this.conditionChecker = conditionChecker;
     }
 
+    public CompositeTextBlockBuilder() {
+        this(null);
+    }
+
     public CompositeTextBlockBuilder add(String name, String templatePart) {
         var block = TextBlockFactory.createSimpleEmptyWith(templatePart);
-        if (!conditionChecker.Check(block)) {
+        if (isNotContinueBuild(block)) {
             return this;
         }
         templateParts.put(name, templatePart);
-        conditionChecker.Update(block);
+        updateIfCan(block);
         return this;
     }
 
@@ -32,11 +36,11 @@ public class CompositeTextBlockBuilder {
         if (variable == null) {
             return this;
         }
-        if (!conditionChecker.Check(variable)) {
+        if (isNotContinueBuild(variable)) {
             return this;
         }
         variables.put(name, variable);
-        conditionChecker.Update(variable);
+        updateIfCan(variable);
         return this;
     }
 
@@ -48,5 +52,15 @@ public class CompositeTextBlockBuilder {
             }
         }
         return TextBlockFactory.createTemplateWith(template.toString(), variables);
+    }
+
+    protected boolean isNotContinueBuild(TextBlockContract block) {
+        return conditionChecker != null && !conditionChecker.Check(block);
+    }
+
+    protected void updateIfCan(TextBlockContract block) {
+        if (conditionChecker != null) {
+            conditionChecker.Update(block);
+        }
     }
 }
