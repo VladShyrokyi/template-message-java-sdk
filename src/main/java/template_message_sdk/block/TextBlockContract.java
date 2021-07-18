@@ -1,4 +1,6 @@
-package template_message_sdk;
+package template_message_sdk.block;
+
+import template_message_sdk.editor.TextEditor;
 
 public interface TextBlockContract {
     TextBlockContract copy();

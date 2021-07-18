@@ -1,4 +1,6 @@
-package template_message_sdk;
+package template_message_sdk.checker;
+
+import template_message_sdk.block.TextBlockContract;
 
 public class CharCountCheckerImpl implements ConditionCheckerContract {
     private int limit = 0;

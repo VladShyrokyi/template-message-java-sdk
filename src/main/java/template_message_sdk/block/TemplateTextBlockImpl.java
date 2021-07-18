@@ -1,4 +1,7 @@
-package template_message_sdk;
+package template_message_sdk.block;
+
+import template_message_sdk.DefaultRegex;
+import template_message_sdk.editor.TextEditor;
 
 import java.util.HashMap;
 import java.util.Map;

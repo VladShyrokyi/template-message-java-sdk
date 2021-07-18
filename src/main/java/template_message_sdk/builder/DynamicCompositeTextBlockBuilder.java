@@ -1,4 +1,9 @@
-package template_message_sdk;
+package template_message_sdk.builder;
+
+import template_message_sdk.DefaultRegex;
+import template_message_sdk.block.TemplateTextBlockImpl;
+import template_message_sdk.block.TextBlockContract;
+import template_message_sdk.checker.ConditionCheckerContract;
 
 public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder {
     private final String dynamicVariableName;
@@ -7,7 +12,8 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
     private int dynamicVariableCounter = 0;
 
     public DynamicCompositeTextBlockBuilder(ConditionCheckerContract conditionChecker, String dynamicVariableName,
-                                            String separator) {
+                                            String separator
+    ) {
         super(conditionChecker);
         this.dynamicVariableName = dynamicVariableName;
         this.separator = separator;

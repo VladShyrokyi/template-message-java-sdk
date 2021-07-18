@@ -1,4 +1,9 @@
-package template_message_sdk;
+package template_message_sdk.builder;
+
+import template_message_sdk.block.SimpleTextBlockImpl;
+import template_message_sdk.block.TemplateTextBlockImpl;
+import template_message_sdk.block.TextBlockContract;
+import template_message_sdk.checker.ConditionCheckerContract;
 
 import java.util.HashMap;
 import java.util.Map;
