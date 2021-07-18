@@ -12,8 +12,7 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
     private int dynamicVariableCounter = 0;
 
     public DynamicCompositeTextBlockBuilder(ConditionCheckerContract conditionChecker, String dynamicVariableName,
-                                            String separator
-    ) {
+                                            String separator) {
         super(conditionChecker);
         this.dynamicVariableName = dynamicVariableName;
         this.separator = separator;
