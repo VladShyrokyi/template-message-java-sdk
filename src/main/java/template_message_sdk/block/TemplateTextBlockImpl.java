@@ -9,9 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TemplateTextBlockImpl implements TextBlockContract {
+    private final Map<String, TextBlockContract> variables = new HashMap<>();
+
     private TextWriter writer;
     private TextEditor editor;
-    private final Map<String, TextBlockContract> variables = new HashMap<>();
 
     public TemplateTextBlockImpl(TextWriter writer, TextEditor editor) {
         this.writer = writer;
@@ -36,7 +37,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     }
 
     public TemplateTextBlockImpl(TemplateTextBlockImpl template) {
-        this(template.writer.copy(), template.getEditor());
+        this(template.getWriter().copy(), template.getEditor());
         variables.forEach((name, variable) -> putVariable(name, variable.copy()));
     }
 
@@ -61,6 +62,16 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     @Override
     public TextBlockContract copy() {
         return new TemplateTextBlockImpl(this);
+    }
+
+    @Override
+    public TextWriter getWriter() {
+        return writer;
+    }
+
+    @Override
+    public void setWriter(TextWriter writer) {
+        this.writer = writer;
     }
 
     @Override

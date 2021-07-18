@@ -3,16 +3,18 @@ package template_message_sdk.block;
 import template_message_sdk.DefaultRegex;
 import template_message_sdk.editor.TextEditor;
 import template_message_sdk.writer.RegexTextWriter;
+import template_message_sdk.writer.TextWriter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SimpleTextBlockImpl implements TextBlockContract {
-    private final RegexTextWriter writer;
-    private TextEditor editor;
     private final Map<String, String> variables = new HashMap<>();
 
-    public SimpleTextBlockImpl(RegexTextWriter writer, TextEditor editor) {
+    private TextWriter writer;
+    private TextEditor editor;
+
+    public SimpleTextBlockImpl(TextWriter writer, TextEditor editor) {
         this.writer = writer;
         this.editor = editor;
     }
@@ -31,7 +33,7 @@ public class SimpleTextBlockImpl implements TextBlockContract {
     }
 
     public SimpleTextBlockImpl(SimpleTextBlockImpl block) {
-        this(block.writer, block.editor);
+        this(block.getWriter().copy(), block.getEditor().copy());
         block.variables.forEach(this::putVariable);
     }
 
@@ -65,6 +67,16 @@ public class SimpleTextBlockImpl implements TextBlockContract {
     @Override
     public TextBlockContract copy() {
         return new SimpleTextBlockImpl(this);
+    }
+
+    @Override
+    public TextWriter getWriter() {
+        return writer;
+    }
+
+    @Override
+    public void setWriter(TextWriter writer) {
+        this.writer = writer;
     }
 
     @Override
