@@ -41,11 +41,6 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     }
 
     @Override
-    public TextBlockContract copy() {
-        return new TemplateTextBlockImpl(this);
-    }
-
-    @Override
     public TextWriterContract getWriter() {
         return writer;
     }
@@ -63,6 +58,11 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     @Override
     public void setEditor(TextEditorContract editor) {
         this.editor = editor;
+    }
+
+    @Override
+    public TextBlockContract copy() {
+        return new TemplateTextBlockImpl(this);
     }
 
     @Override

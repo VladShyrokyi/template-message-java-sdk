@@ -40,11 +40,6 @@ public class SimpleTextBlockImpl implements TextBlockContract {
     }
 
     @Override
-    public TextBlockContract copy() {
-        return new SimpleTextBlockImpl(this);
-    }
-
-    @Override
     public TextWriterContract getWriter() {
         return writer;
     }
@@ -65,6 +60,11 @@ public class SimpleTextBlockImpl implements TextBlockContract {
     }
 
     @Override
+    public TextBlockContract copy() {
+        return new SimpleTextBlockImpl(this);
+    }
+
+    @Override
     public String write() {
         return editor != null
                ? editor.toEditing(writer.toWriting(Map.copyOf(variables), ""))
@@ -78,7 +78,6 @@ public class SimpleTextBlockImpl implements TextBlockContract {
 
     @Override
     public String writeWithoutEditor() {
-        return editor.toEditing(writer.toWriting(Map.copyOf(variables), ""));
+        return writer.toWriting(Map.copyOf(variables), "");
     }
-
 }

@@ -4,8 +4,6 @@ import template_message_sdk.editor.TextEditorContract;
 import template_message_sdk.writer.TextWriterContract;
 
 public interface TextBlockContract {
-    TextBlockContract copy();
-
     TextWriterContract getWriter();
 
     void setWriter(TextWriterContract writer);
@@ -13,6 +11,8 @@ public interface TextBlockContract {
     TextEditorContract getEditor();
 
     void setEditor(TextEditorContract editor);
+
+    TextBlockContract copy();
 
     String write();
 
