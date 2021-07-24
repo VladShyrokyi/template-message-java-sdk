@@ -8,7 +8,7 @@ import template_message_sdk.writer.TextWriterContract;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TemplateTextBlockImpl implements TextBlockContract {
+public class TemplateTextBlockImpl implements TextBlockContract, TextBlockHaveVariablesContract<TextBlockContract> {
     private final Map<String, TextBlockContract> variables = new HashMap<>();
 
     private TextWriterContract writer;
@@ -33,6 +33,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         block.variables.forEach((name, variable) -> putVariable(name, variable.copy()));
     }
 
+    @Override
     public TextBlockContract getVariable(String name) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
@@ -40,6 +41,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         return variables.get(name);
     }
 
+    @Override
     public void putVariable(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
