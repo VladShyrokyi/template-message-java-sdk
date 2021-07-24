@@ -1,6 +1,6 @@
 package template_message_sdk.builder;
 
-import template_message_sdk.block.TemplateTextBlockImpl;
+import template_message_sdk.block.CompositeTemplateBlockImpl;
 import template_message_sdk.block.TextBlockContract;
 import template_message_sdk.checker.ConditionCheckerContract;
 import template_message_sdk.exceptions.TemplateNullPointException;
@@ -55,7 +55,7 @@ public class CompositeTextBlockBuilder {
         return this;
     }
 
-    public TemplateTextBlockImpl build() {
+    public CompositeTemplateBlockImpl build() {
         return TextBlockFactory.createTemplateWith(collectTemplate(), variables);
     }
 

@@ -8,13 +8,13 @@ import template_message_sdk.writer.TextWriterContract;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleTextBlockImpl implements TextBlockContract, TextBlockHaveVariablesContract<String> {
+public class TemplateBlockImpl implements TextBlockContract, TextBlockHaveVariablesContract<String> {
     private final Map<String, String> variables = new HashMap<>();
 
     private TextWriterContract writer;
     private TextEditorContract editor;
 
-    public SimpleTextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
+    public TemplateBlockImpl(TextWriterContract writer, TextEditorContract editor) {
         if (writer == null) {
             throw new NullPointerException("Writer can not be null!");
         }
@@ -22,7 +22,7 @@ public class SimpleTextBlockImpl implements TextBlockContract, TextBlockHaveVari
         this.editor = editor;
     }
 
-    public SimpleTextBlockImpl(SimpleTextBlockImpl block) {
+    public TemplateBlockImpl(TemplateBlockImpl block) {
         if (block == null) {
             throw new NullPointerException("Block can not be null!");
         }
@@ -74,7 +74,7 @@ public class SimpleTextBlockImpl implements TextBlockContract, TextBlockHaveVari
 
     @Override
     public TextBlockContract copy() {
-        return new SimpleTextBlockImpl(this);
+        return new TemplateBlockImpl(this);
     }
 
     @Override
