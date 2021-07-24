@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class CompositeTextBlockBuilder {
     private final ConditionCheckerContract conditionChecker;
-
     private final Map<String, String> templateParts = new HashMap<>();
-    private final Map<String, TextBlockContract> variables = new HashMap<>();
+
+    protected final Map<String, TextBlockContract> variables = new HashMap<>();
 
     public CompositeTextBlockBuilder(ConditionCheckerContract conditionChecker) {
         this.conditionChecker = conditionChecker;
@@ -45,13 +45,15 @@ public class CompositeTextBlockBuilder {
     }
 
     public TemplateTextBlockImpl build() {
-        StringBuilder template = new StringBuilder();
-        for (String name : variables.keySet()) {
-            if (templateParts.containsKey(name)) {
-                template.append(templateParts.get(name));
-            }
-        }
-        return TextBlockFactory.createTemplateWith(template.toString(), variables);
+        return TextBlockFactory.createTemplateWith(collectTemplate(), variables);
+    }
+
+    protected String collectTemplate() {
+        return variables.keySet().stream().reduce("", (template, variableName) ->
+                templateParts.containsKey(variableName)
+                ? template + templateParts.get(variableName)
+                : template
+        );
     }
 
     protected boolean isNotContinueBuild(TextBlockContract block) {
