@@ -1,6 +1,8 @@
 package template_message_sdk.block;
 
 import template_message_sdk.editor.TextEditorContract;
+import template_message_sdk.exceptions.VariableNameNullPointException;
+import template_message_sdk.exceptions.VariableNullPointException;
 import template_message_sdk.writer.TextWriterContract;
 
 import java.util.HashMap;
@@ -12,29 +14,40 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     private TextWriterContract writer;
     private TextEditorContract editor;
 
-    public TemplateTextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
+    public TemplateTextBlockImpl(TextWriterContract writer, TextEditorContract editor) throws NullPointerException {
+        if (writer == null) {
+            throw new NullPointerException("Writer can not be null!");
+        }
         this.writer = writer;
         this.editor = editor;
     }
 
-    public TemplateTextBlockImpl(TemplateTextBlockImpl block) {
-        this(block.getWriter().copy(), block.getEditor().copy());
+    public TemplateTextBlockImpl(TemplateTextBlockImpl block) throws NullPointerException {
+        if (block == null) {
+            throw new NullPointerException("Block can not be null!");
+        }
+        writer = block.getWriter().copy();
+        if (block.getEditor() != null) {
+            editor = block.getEditor().copy();
+        }
         block.variables.forEach((name, variable) -> putVariable(name, variable.copy()));
     }
 
-    public TextBlockContract getVariable(String name) {
+    public TextBlockContract getVariable(String name) throws VariableNameNullPointException {
         if (name == null) {
-            return null;
+            throw new VariableNameNullPointException(this);
         }
         return variables.get(name);
     }
 
-    public void putVariable(String name, TextBlockContract variable) throws NullPointerException {
+    public void putVariable(String name,
+                            TextBlockContract variable) throws VariableNameNullPointException,
+                                                               VariableNullPointException {
         if (name == null) {
-            throw new NullPointerException("Variable name can not be null!");
+            throw new VariableNameNullPointException(this);
         }
         if (variable == null) {
-            throw new NullPointerException("Variable can not be null");
+            throw new VariableNullPointException(this);
         }
 
         variables.put(name, variable);

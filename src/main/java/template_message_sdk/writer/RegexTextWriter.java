@@ -1,5 +1,8 @@
 package template_message_sdk.writer;
 
+import template_message_sdk.exceptions.RegexNullPointException;
+import template_message_sdk.exceptions.TemplateNullPointException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,14 +15,25 @@ public class RegexTextWriter implements TextWriterContract {
 
     private String template;
 
-    public RegexTextWriter(String template, String regex) {
+    public RegexTextWriter(String template, String regex) throws TemplateNullPointException, RegexNullPointException {
+        if (template == null) {
+            throw new TemplateNullPointException(this);
+        }
+        if (regex == null) {
+            throw new RegexNullPointException(this);
+        }
         this.regex = regex;
         selectorPattern = Pattern.compile(regex);
         setTemplate(template);
     }
 
-    public RegexTextWriter(RegexTextWriter writer) {
-        this(writer.template, writer.regex);
+    public RegexTextWriter(RegexTextWriter writer) throws NullPointerException {
+        if (writer == null) {
+            throw new NullPointerException("Writer can not be null!");
+        }
+        this.regex = writer.regex;
+        selectorPattern = Pattern.compile(this.regex);
+        setTemplate(writer.template);
     }
 
     public String getRegex() {

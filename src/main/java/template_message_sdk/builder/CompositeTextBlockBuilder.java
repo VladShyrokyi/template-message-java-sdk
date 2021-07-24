@@ -3,16 +3,18 @@ package template_message_sdk.builder;
 import template_message_sdk.block.TemplateTextBlockImpl;
 import template_message_sdk.block.TextBlockContract;
 import template_message_sdk.checker.ConditionCheckerContract;
+import template_message_sdk.exceptions.TemplateNullPointException;
+import template_message_sdk.exceptions.VariableNameNullPointException;
+import template_message_sdk.exceptions.VariableNullPointException;
 import template_message_sdk.factory.TextBlockFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CompositeTextBlockBuilder {
+    protected final Map<String, TextBlockContract> variables = new HashMap<>();
     private final ConditionCheckerContract conditionChecker;
     private final Map<String, String> templateParts = new HashMap<>();
-
-    protected final Map<String, TextBlockContract> variables = new HashMap<>();
 
     public CompositeTextBlockBuilder(ConditionCheckerContract conditionChecker) {
         this.conditionChecker = conditionChecker;
@@ -22,7 +24,15 @@ public class CompositeTextBlockBuilder {
         this(null);
     }
 
-    public CompositeTextBlockBuilder add(String name, String templatePart) {
+    public CompositeTextBlockBuilder add(String name,
+                                         String templatePart) throws VariableNameNullPointException,
+                                                                     TemplateNullPointException {
+        if (name == null) {
+            throw new VariableNameNullPointException(this);
+        }
+        if (templatePart == null) {
+            throw new TemplateNullPointException(this);
+        }
         var block = TextBlockFactory.createSimpleEmptyWith(templatePart);
         if (isNotContinueBuild(block)) {
             return this;
@@ -32,9 +42,14 @@ public class CompositeTextBlockBuilder {
         return this;
     }
 
-    public CompositeTextBlockBuilder put(String name, TextBlockContract variable) {
+    public CompositeTextBlockBuilder put(String name,
+                                         TextBlockContract variable) throws VariableNameNullPointException,
+                                                                            VariableNullPointException {
+        if (name == null) {
+            throw new VariableNameNullPointException(this);
+        }
         if (variable == null) {
-            return this;
+            throw new VariableNullPointException(this);
         }
         if (isNotContinueBuild(variable)) {
             return this;

@@ -5,27 +5,45 @@ import template_message_sdk.block.SimpleTextBlockImpl;
 import template_message_sdk.block.TemplateTextBlockImpl;
 import template_message_sdk.block.TextBlockContract;
 import template_message_sdk.builder.DynamicCompositeTextBlockBuilder;
+import template_message_sdk.exceptions.TemplateNullPointException;
+import template_message_sdk.exceptions.VariableNullPointException;
 import template_message_sdk.writer.RegexTextWriter;
 
 import java.util.Arrays;
 import java.util.Map;
 
 public class TextBlockFactory {
-    public static SimpleTextBlockImpl createSimpleEmptyWith(String template) {
+    public static SimpleTextBlockImpl createSimpleEmptyWith(String template) throws TemplateNullPointException {
+        if (template == null) {
+            throw new TemplateNullPointException(TextBlockFactory.class);
+        }
         return new SimpleTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
     }
 
-    public static TemplateTextBlockImpl createTemplateEmptyWith(String template) {
+    public static TemplateTextBlockImpl createTemplateEmptyWith(String template) throws TemplateNullPointException {
+        if (template == null) {
+            throw new TemplateNullPointException(TextBlockFactory.class);
+        }
         return new TemplateTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
     }
 
-    public static SimpleTextBlockImpl createSimpleWith(String template, Map<String, String> variables) {
+    public static SimpleTextBlockImpl createSimpleWith(String template,
+                                                       Map<String, String> variables) throws TemplateNullPointException, VariableNullPointException {
+        if (template == null) {
+            throw new TemplateNullPointException(TextBlockFactory.class);
+        }
+        if (variables == null) {
+            throw new VariableNullPointException(TextBlockFactory.class);
+        }
         var block = new SimpleTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
         variables.forEach(block::putVariable);
         return block;
     }
 
-    public static SimpleTextBlockImpl createSimpleWith(String variable) {
+    public static SimpleTextBlockImpl createSimpleWith(String variable) throws VariableNullPointException {
+        if (variable == null) {
+            throw new VariableNullPointException(TextBlockFactory.class);
+        }
         var block = new SimpleTextBlockImpl(new RegexTextWriter(
                 DefaultRegex.createSelector(DefaultRegex.DYNAMIC_VARIABLE_NAME),
                 DefaultRegex.REGEX
@@ -34,13 +52,27 @@ public class TextBlockFactory {
         return block;
     }
 
-    public static TemplateTextBlockImpl createTemplateWith(String template, Map<String, TextBlockContract> variables) {
+    public static TemplateTextBlockImpl createTemplateWith(String template,
+                                                           Map<String, TextBlockContract> variables) throws TemplateNullPointException, VariableNullPointException {
+        if (template == null) {
+            throw new TemplateNullPointException(TextBlockFactory.class);
+        }
+        if (variables == null) {
+            throw new VariableNullPointException(TextBlockFactory.class);
+        }
         var block = new TemplateTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
         variables.forEach(block::putVariable);
         return block;
     }
 
-    public static TemplateTextBlockImpl createTemplateWith(String separator, TextBlockContract[] variables) {
+    public static TemplateTextBlockImpl createTemplateWith(String separator,
+                                                           TextBlockContract[] variables) throws NullPointerException {
+        if (separator == null) {
+            throw new NullPointerException("Separator can not be null!");
+        }
+        if (variables == null) {
+            throw new VariableNullPointException(TextBlockFactory.class);
+        }
         var builder = new DynamicCompositeTextBlockBuilder(separator);
         Arrays.stream(variables).forEach(builder::dynamicPut);
         return builder.build();
