@@ -1,7 +1,5 @@
 package template_message_sdk.writer;
 
-import template_message_sdk.DefaultRegex;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -20,16 +18,8 @@ public class RegexTextWriter implements TextWriterContract {
         setTemplate(template);
     }
 
-    public RegexTextWriter(String template) {
-        this(template, DefaultRegex.REGEX);
-    }
-
     public RegexTextWriter(RegexTextWriter writer) {
         this(writer.template, writer.regex);
-    }
-
-    public RegexTextWriter() {
-        this("");
     }
 
     public String getRegex() {

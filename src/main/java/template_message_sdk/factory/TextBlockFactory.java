@@ -4,19 +4,13 @@ import template_message_sdk.DefaultRegex;
 import template_message_sdk.block.SimpleTextBlockImpl;
 import template_message_sdk.block.TemplateTextBlockImpl;
 import template_message_sdk.block.TextBlockContract;
+import template_message_sdk.builder.DynamicCompositeTextBlockBuilder;
 import template_message_sdk.writer.RegexTextWriter;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class TextBlockFactory {
-    public static SimpleTextBlockImpl createSimple() {
-        return new SimpleTextBlockImpl(new RegexTextWriter(), null);
-    }
-
-    public static TemplateTextBlockImpl createTemplate() {
-        return new TemplateTextBlockImpl(new RegexTextWriter(), null);
-    }
-
     public static SimpleTextBlockImpl createSimpleEmptyWith(String template) {
         return new SimpleTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
     }
@@ -31,9 +25,24 @@ public class TextBlockFactory {
         return block;
     }
 
+    public static SimpleTextBlockImpl createSimpleWith(String variable) {
+        var block = new SimpleTextBlockImpl(new RegexTextWriter(
+                DefaultRegex.createSelector(DefaultRegex.DYNAMIC_VARIABLE_NAME),
+                DefaultRegex.REGEX
+        ), null);
+        block.putVariable(DefaultRegex.DYNAMIC_VARIABLE_NAME, variable);
+        return block;
+    }
+
     public static TemplateTextBlockImpl createTemplateWith(String template, Map<String, TextBlockContract> variables) {
         var block = new TemplateTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
         variables.forEach(block::putVariable);
         return block;
+    }
+
+    public static TemplateTextBlockImpl createTemplateWith(String separator, TextBlockContract[] variables) {
+        var builder = new DynamicCompositeTextBlockBuilder(separator);
+        Arrays.stream(variables).forEach(builder::dynamicPut);
+        return builder.build();
     }
 }
