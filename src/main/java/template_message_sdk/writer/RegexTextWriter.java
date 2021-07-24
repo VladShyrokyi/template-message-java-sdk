@@ -15,7 +15,7 @@ public class RegexTextWriter implements TextWriterContract {
 
     private String template;
 
-    public RegexTextWriter(String template, String regex) throws TemplateNullPointException, RegexNullPointException {
+    public RegexTextWriter(String template, String regex) {
         if (template == null) {
             throw new TemplateNullPointException(this);
         }
@@ -27,7 +27,7 @@ public class RegexTextWriter implements TextWriterContract {
         setTemplate(template);
     }
 
-    public RegexTextWriter(RegexTextWriter writer) throws NullPointerException {
+    public RegexTextWriter(RegexTextWriter writer) {
         if (writer == null) {
             throw new NullPointerException("Writer can not be null!");
         }

@@ -15,7 +15,7 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
     private int dynamicVariableCounter = 0;
 
     public DynamicCompositeTextBlockBuilder(String separator, String dynamicVariableName,
-                                            ConditionCheckerContract conditionChecker) throws NullPointerException {
+                                            ConditionCheckerContract conditionChecker) {
         super(conditionChecker);
         if (separator == null) {
             throw new NullPointerException("Separator can not be null");
@@ -33,9 +33,7 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
     }
 
     @Override
-    public DynamicCompositeTextBlockBuilder add(String name,
-                                                String templatePart) throws VariableNameNullPointException,
-                                                                            TemplateNullPointException {
+    public DynamicCompositeTextBlockBuilder add(String name, String templatePart) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
@@ -46,9 +44,7 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
     }
 
     @Override
-    public DynamicCompositeTextBlockBuilder put(String name,
-                                                TextBlockContract variable) throws VariableNameNullPointException,
-                                                                                   VariableNullPointException {
+    public DynamicCompositeTextBlockBuilder put(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
@@ -58,7 +54,7 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
         return (DynamicCompositeTextBlockBuilder) super.put(name, variable);
     }
 
-    public DynamicCompositeTextBlockBuilder dynamicPut(TextBlockContract block) throws VariableNullPointException {
+    public DynamicCompositeTextBlockBuilder dynamicPut(TextBlockContract block) {
         if (block == null) {
             throw new VariableNullPointException(this);
         }

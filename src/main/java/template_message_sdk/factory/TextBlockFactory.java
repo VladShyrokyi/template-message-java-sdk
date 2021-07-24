@@ -13,22 +13,21 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class TextBlockFactory {
-    public static SimpleTextBlockImpl createSimpleEmptyWith(String template) throws TemplateNullPointException {
+    public static SimpleTextBlockImpl createSimpleEmptyWith(String template) {
         if (template == null) {
             throw new TemplateNullPointException(TextBlockFactory.class);
         }
         return new SimpleTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
     }
 
-    public static TemplateTextBlockImpl createTemplateEmptyWith(String template) throws TemplateNullPointException {
+    public static TemplateTextBlockImpl createTemplateEmptyWith(String template) {
         if (template == null) {
             throw new TemplateNullPointException(TextBlockFactory.class);
         }
         return new TemplateTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
     }
 
-    public static SimpleTextBlockImpl createSimpleWith(String template,
-                                                       Map<String, String> variables) throws TemplateNullPointException, VariableNullPointException {
+    public static SimpleTextBlockImpl createSimpleWith(String template, Map<String, String> variables) {
         if (template == null) {
             throw new TemplateNullPointException(TextBlockFactory.class);
         }
@@ -40,7 +39,7 @@ public class TextBlockFactory {
         return block;
     }
 
-    public static SimpleTextBlockImpl createSimpleWith(String variable) throws VariableNullPointException {
+    public static SimpleTextBlockImpl createSimpleWith(String variable) {
         if (variable == null) {
             throw new VariableNullPointException(TextBlockFactory.class);
         }
@@ -52,8 +51,7 @@ public class TextBlockFactory {
         return block;
     }
 
-    public static TemplateTextBlockImpl createTemplateWith(String template,
-                                                           Map<String, TextBlockContract> variables) throws TemplateNullPointException, VariableNullPointException {
+    public static TemplateTextBlockImpl createTemplateWith(String template, Map<String, TextBlockContract> variables) {
         if (template == null) {
             throw new TemplateNullPointException(TextBlockFactory.class);
         }
@@ -65,8 +63,7 @@ public class TextBlockFactory {
         return block;
     }
 
-    public static TemplateTextBlockImpl createTemplateWith(String separator,
-                                                           TextBlockContract[] variables) throws NullPointerException {
+    public static TemplateTextBlockImpl createTemplateWith(String separator, TextBlockContract[] variables) {
         if (separator == null) {
             throw new NullPointerException("Separator can not be null!");
         }

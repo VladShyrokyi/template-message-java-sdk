@@ -14,7 +14,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
     private TextWriterContract writer;
     private TextEditorContract editor;
 
-    public TemplateTextBlockImpl(TextWriterContract writer, TextEditorContract editor) throws NullPointerException {
+    public TemplateTextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
         if (writer == null) {
             throw new NullPointerException("Writer can not be null!");
         }
@@ -22,7 +22,7 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         this.editor = editor;
     }
 
-    public TemplateTextBlockImpl(TemplateTextBlockImpl block) throws NullPointerException {
+    public TemplateTextBlockImpl(TemplateTextBlockImpl block) {
         if (block == null) {
             throw new NullPointerException("Block can not be null!");
         }
@@ -33,16 +33,14 @@ public class TemplateTextBlockImpl implements TextBlockContract {
         block.variables.forEach((name, variable) -> putVariable(name, variable.copy()));
     }
 
-    public TextBlockContract getVariable(String name) throws VariableNameNullPointException {
+    public TextBlockContract getVariable(String name) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
         return variables.get(name);
     }
 
-    public void putVariable(String name,
-                            TextBlockContract variable) throws VariableNameNullPointException,
-                                                               VariableNullPointException {
+    public void putVariable(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }

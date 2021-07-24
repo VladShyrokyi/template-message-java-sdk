@@ -24,9 +24,7 @@ public class CompositeTextBlockBuilder {
         this(null);
     }
 
-    public CompositeTextBlockBuilder add(String name,
-                                         String templatePart) throws VariableNameNullPointException,
-                                                                     TemplateNullPointException {
+    public CompositeTextBlockBuilder add(String name, String templatePart) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
@@ -42,9 +40,7 @@ public class CompositeTextBlockBuilder {
         return this;
     }
 
-    public CompositeTextBlockBuilder put(String name,
-                                         TextBlockContract variable) throws VariableNameNullPointException,
-                                                                            VariableNullPointException {
+    public CompositeTextBlockBuilder put(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
