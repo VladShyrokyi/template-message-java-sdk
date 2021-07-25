@@ -20,7 +20,7 @@ public class TemplateBlockDynamicBuilder extends TemplateBlockBuilder {
         this.dynamicVariableName = dynamicVariableName;
     }
 
-    public void dynamicPut(TextBlockContract block) {
+    public void append(TextBlockContract block) {
         if (block == null) {
             throw new VariableNullPointException(this);
         }

@@ -22,11 +22,11 @@ public class TemplateBlockConditionDynamicBuilder extends TemplateBlockCondition
         this.dynamicVariableName = dynamicVariableName;
     }
 
-    public void dynamicPut(TextBlockContract block) {
-        tryDynamicPut(block);
+    public void append(TextBlockContract block) {
+        tryAppend(block);
     }
 
-    public boolean tryDynamicPut(TextBlockContract block) {
+    public boolean tryAppend(TextBlockContract block) {
         if (block == null) {
             throw new VariableNullPointException(this);
         }
