@@ -58,5 +58,4 @@ public class TemplateBlockBuilder {
     protected String toCollectTemplate() {
         return String.join("", templateParts);
     }
-
 }
