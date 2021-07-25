@@ -6,7 +6,7 @@ public final class DefaultRegex {
 
     private DefaultRegex() {}
 
-    public static String createSelector(String name) {
+    public static String selectorFrom(String name) {
         return "%[" + name + "]%";
     }
 }

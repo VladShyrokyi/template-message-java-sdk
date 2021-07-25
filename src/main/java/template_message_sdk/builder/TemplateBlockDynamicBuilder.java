@@ -23,8 +23,8 @@ public class TemplateBlockDynamicBuilder extends TemplateBlockBuilder {
         }
         var variableName = dynamicVariableName + "_" + dynamicVariableCounter;
         var templatePart = dynamicVariableCounter == 0
-                           ? DefaultRegex.createSelector(variableName)
-                           : separator + DefaultRegex.createSelector(variableName);
+                           ? DefaultRegex.selectorFrom(variableName)
+                           : separator + DefaultRegex.selectorFrom(variableName);
         super.append(templatePart);
         super.putVariable(variableName, block);
         dynamicVariableCounter++;

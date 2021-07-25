@@ -25,7 +25,7 @@ public class TextBlockFactory {
         }
 
         var block = new TextBlockImpl(new RegexTextWriter(
-                DefaultRegex.createSelector(DefaultRegex.DYNAMIC_VARIABLE_NAME),
+                DefaultRegex.selectorFrom(DefaultRegex.DYNAMIC_VARIABLE_NAME),
                 DefaultRegex.REGEX
         ), null);
         block.setVariable(variable);

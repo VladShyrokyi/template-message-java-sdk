@@ -30,8 +30,8 @@ public class TemplateBlockConditionDynamicBuilder extends TemplateBlockCondition
         }
         var variableName = dynamicVariableName + "_" + dynamicVariableCounter;
         var templatePart = dynamicVariableCounter == 0
-                           ? DefaultRegex.createSelector(variableName)
-                           : separator + DefaultRegex.createSelector(variableName);
+                           ? DefaultRegex.selectorFrom(variableName)
+                           : separator + DefaultRegex.selectorFrom(variableName);
         var isAppended = super.tryAppend(templatePart);
         if (!isAppended) {
             return false;
