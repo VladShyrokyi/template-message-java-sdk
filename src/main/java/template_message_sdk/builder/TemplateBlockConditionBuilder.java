@@ -1,6 +1,5 @@
 package template_message_sdk.builder;
 
-import template_message_sdk.block.TemplateBlockImpl;
 import template_message_sdk.block.TextBlockContract;
 import template_message_sdk.checker.ConditionCheckerContract;
 import template_message_sdk.editor.TextEditorContract;
@@ -8,13 +7,10 @@ import template_message_sdk.exceptions.TemplateNullPointException;
 import template_message_sdk.exceptions.VariableNameNullPointException;
 import template_message_sdk.exceptions.VariableNullPointException;
 import template_message_sdk.factory.TextBlockFactory;
-import template_message_sdk.writer.RegexTextWriter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class TemplateBlockConditionBuilder extends TemplateBlockBuilder {
-    protected final Map<String, TextBlockContract> variables = new HashMap<>();
     private final ConditionCheckerContract conditionChecker;
 
     public TemplateBlockConditionBuilder(String regex, TextEditorContract editor,
@@ -67,13 +63,6 @@ public class TemplateBlockConditionBuilder extends TemplateBlockBuilder {
             throw new VariableNullPointException(this);
         }
         variables.forEach(this::putVariable);
-    }
-
-    @Override
-    public TextBlockContract build() {
-        var block = new TemplateBlockImpl(new RegexTextWriter(super.toCollectTemplate(), regex), editor);
-        variables.forEach(block::putVariable);
-        return block;
     }
 
     protected boolean isNotContinueBuild(TextBlockContract block) {
