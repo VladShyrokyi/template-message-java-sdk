@@ -8,7 +8,7 @@ import template_message_sdk.writer.TextWriterContract;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TemplateBlockImpl implements TextBlockContract, TextBlockHaveVariablesContract,
+public class TemplateBlockImpl implements TextBlockContract, TextBlockWithVariablesContract,
         TextBlockExpendableContract {
     private final Map<String, TextBlockContract> variables = new HashMap<>();
 
