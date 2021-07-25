@@ -57,9 +57,7 @@ public class TemplateBlockImpl implements TextBlockContract, TextBlockWithVariab
 
     @Override
     public void append(String templatePart) {
-        var writer = getWriter().copy();
         writer.setTemplate(writer.getTemplate() + templatePart);
-        setWriter(writer);
     }
 
     @Override
