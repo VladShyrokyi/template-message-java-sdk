@@ -30,6 +30,14 @@ public class TemplateBlockConditionBuilder extends TemplateBlockBuilder {
         tryPutVariable(name, variable);
     }
 
+    @Override
+    public void putVariables(Map<String, TextBlockContract> variables) {
+        if (variables == null) {
+            throw new VariableNullPointException(this);
+        }
+        variables.forEach(this::putVariable);
+    }
+
     public boolean tryAppend(String templatePart) {
         if (templatePart == null) {
             throw new TemplateNullPointException(this);
@@ -56,14 +64,6 @@ public class TemplateBlockConditionBuilder extends TemplateBlockBuilder {
         super.putVariable(name, variable);
         updateIfCan(variable);
         return true;
-    }
-
-    @Override
-    public void putVariables(Map<String, TextBlockContract> variables) {
-        if (variables == null) {
-            throw new VariableNullPointException(this);
-        }
-        variables.forEach(this::putVariable);
     }
 
     protected boolean isNotContinueBuild(TextBlockContract block) {
