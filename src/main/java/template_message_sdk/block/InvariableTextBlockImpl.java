@@ -55,7 +55,9 @@ public class InvariableTextBlockImpl implements TextBlockContract {
 
     @Override
     public String write() {
-        return editor.toEditing(writer.toWriting(Map.of(), ""));
+        return editor != null
+               ? editor.toEditing(writer.toWriting(Map.of(), ""))
+               : writer.toWriting(Map.of(), "");
     }
 
     @Override
