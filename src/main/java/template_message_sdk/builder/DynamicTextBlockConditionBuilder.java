@@ -10,13 +10,13 @@ import template_message_sdk.factory.TextBlockFactory;
 
 import java.util.Map;
 
-public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder {
+public class DynamicTextBlockConditionBuilder extends TextBlockConditionBuilder {
     private final String dynamicVariableName;
     private final String separator;
 
     private int dynamicVariableCounter = 0;
 
-    public DynamicCompositeTextBlockBuilder(String separator, String dynamicVariableName,
+    public DynamicTextBlockConditionBuilder(String separator, String dynamicVariableName,
                                             ConditionCheckerContract conditionChecker) {
         super(conditionChecker);
         if (separator == null) {
@@ -26,37 +26,37 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
         this.dynamicVariableName = dynamicVariableName;
     }
 
-    public DynamicCompositeTextBlockBuilder(String separator, String dynamicVariableName) {
+    public DynamicTextBlockConditionBuilder(String separator, String dynamicVariableName) {
         this(separator, dynamicVariableName, null);
     }
 
-    public DynamicCompositeTextBlockBuilder(String separator) {
+    public DynamicTextBlockConditionBuilder(String separator) {
         this(separator, DefaultRegex.DYNAMIC_VARIABLE_NAME);
     }
 
     @Override
-    public DynamicCompositeTextBlockBuilder add(String name, String templatePart) {
+    public DynamicTextBlockConditionBuilder add(String name, String templatePart) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
         if (templatePart == null) {
             throw new TemplateNullPointException(this);
         }
-        return (DynamicCompositeTextBlockBuilder) super.add(name, templatePart);
+        return (DynamicTextBlockConditionBuilder) super.add(name, templatePart);
     }
 
     @Override
-    public DynamicCompositeTextBlockBuilder put(String name, TextBlockContract variable) {
+    public DynamicTextBlockConditionBuilder put(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
         if (variable == null) {
             throw new VariableNullPointException(this);
         }
-        return (DynamicCompositeTextBlockBuilder) super.put(name, variable);
+        return (DynamicTextBlockConditionBuilder) super.put(name, variable);
     }
 
-    public DynamicCompositeTextBlockBuilder dynamicPut(TextBlockContract block) {
+    public DynamicTextBlockConditionBuilder dynamicPut(TextBlockContract block) {
         if (block == null) {
             throw new VariableNullPointException(this);
         }

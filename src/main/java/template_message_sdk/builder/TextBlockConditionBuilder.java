@@ -10,20 +10,20 @@ import template_message_sdk.factory.TextBlockFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CompositeTextBlockBuilder {
+public class TextBlockConditionBuilder {
     protected final Map<String, TextBlockContract> variables = new HashMap<>();
     private final ConditionCheckerContract conditionChecker;
     private final Map<String, String> templateParts = new HashMap<>();
 
-    public CompositeTextBlockBuilder(ConditionCheckerContract conditionChecker) {
+    public TextBlockConditionBuilder(ConditionCheckerContract conditionChecker) {
         this.conditionChecker = conditionChecker;
     }
 
-    public CompositeTextBlockBuilder() {
+    public TextBlockConditionBuilder() {
         this(null);
     }
 
-    public CompositeTextBlockBuilder add(String name, String templatePart) {
+    public TextBlockConditionBuilder add(String name, String templatePart) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
@@ -39,7 +39,7 @@ public class CompositeTextBlockBuilder {
         return this;
     }
 
-    public CompositeTextBlockBuilder put(String name, TextBlockContract variable) {
+    public TextBlockConditionBuilder put(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
