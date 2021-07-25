@@ -10,8 +10,22 @@ public class InvariableTextBlockImpl implements TextBlockContract {
     private TextEditorContract editor;
 
     public InvariableTextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
+        if (writer == null) {
+            throw new NullPointerException("Writer can not be null!");
+        }
         this.writer = writer;
         this.editor = editor;
+    }
+
+    public InvariableTextBlockImpl(InvariableTextBlockImpl block) {
+        if (block == null) {
+            throw new NullPointerException("Block can not be null!");
+        }
+        this.writer = block.getWriter().copy();
+        var editor = block.getEditor();
+        if (editor != null) {
+            this.editor = editor.copy();
+        }
     }
 
     @Override
@@ -36,7 +50,7 @@ public class InvariableTextBlockImpl implements TextBlockContract {
 
     @Override
     public TextBlockContract copy() {
-        return new InvariableTextBlockImpl(writer.copy(), editor.copy());
+        return new InvariableTextBlockImpl(this);
     }
 
     @Override

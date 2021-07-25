@@ -28,8 +28,9 @@ public class TemplateBlockImpl implements TextBlockContract, TextBlockWithVariab
             throw new NullPointerException("Block can not be null!");
         }
         writer = block.getWriter().copy();
-        if (block.getEditor() != null) {
-            editor = block.getEditor().copy();
+        var editor = block.getEditor();
+        if (editor != null) {
+            this.editor = editor.copy();
         }
         block.variables.forEach((name, variable) -> putVariable(name, variable.copy()));
     }
