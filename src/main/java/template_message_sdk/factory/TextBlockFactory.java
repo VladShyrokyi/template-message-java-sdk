@@ -25,13 +25,11 @@ public class TextBlockFactory {
             throw new VariableNullPointException(TextBlockFactory.class);
         }
 
-        var block = new TextBlockImpl(new RegexTextWriter(
+        return new TextBlockImpl(new RegexTextWriter(
                 DefaultRegex.SELECTOR_FACTORY.apply(DefaultRegex.DYNAMIC_VARIABLE_NAME),
                 DefaultRegex.REGEX,
                 DefaultRegex.SELECTOR_FACTORY
-        ), null);
-        block.setVariable(variable);
-        return block;
+        ), null, variable);
     }
 
     public static TextBlockContract createTemplate(String template, Map<String, TextBlockContract> variables) {

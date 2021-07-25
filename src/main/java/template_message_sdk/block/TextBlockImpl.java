@@ -11,14 +11,23 @@ public class TextBlockImpl implements TextBlockContract {
 
     private String variable = "";
 
-    public TextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
+    public TextBlockImpl(TextWriterContract writer, TextEditorContract editor, String variable) {
+        if (writer == null) {
+            throw new NullPointerException("Writer can not be null! Exception in " + this);
+        }
         this.writer = writer;
         this.editor = editor;
+        if (variable != null) {
+            this.variable = variable;
+        }
+    }
+
+    public TextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
+        this(writer, editor, null);
     }
 
     public TextBlockImpl(TextBlockImpl block) {
-        this(block.getWriter(), block.getEditor());
-        variable = block.getVariable();
+        this(block.getWriter(), block.getEditor(), block.getVariable());
     }
 
     public String getVariable() {
