@@ -7,15 +7,16 @@ import template_message_sdk.exceptions.TemplateNullPointException;
 import template_message_sdk.exceptions.VariableNameNullPointException;
 import template_message_sdk.exceptions.VariableNullPointException;
 import template_message_sdk.factory.TextBlockFactory;
+import template_message_sdk.writer.TextWriterContract;
 
 import java.util.Map;
 
 public class TemplateBlockConditionBuilder extends TemplateBlockBuilder {
     private final ConditionCheckerContract conditionChecker;
 
-    public TemplateBlockConditionBuilder(String regex, TextEditorContract editor,
+    public TemplateBlockConditionBuilder(TextWriterContract writer, TextEditorContract editor,
                                          ConditionCheckerContract conditionChecker) {
-        super(regex, editor);
+        super(writer, editor);
         this.conditionChecker = conditionChecker;
     }
 

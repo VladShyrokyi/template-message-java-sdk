@@ -1,21 +1,23 @@
 package template_message_sdk.builder;
 
-import template_message_sdk.DefaultRegex;
 import template_message_sdk.block.TextBlockContract;
 import template_message_sdk.checker.ConditionCheckerContract;
 import template_message_sdk.editor.TextEditorContract;
 import template_message_sdk.exceptions.VariableNullPointException;
+import template_message_sdk.writer.RegexTextWriter;
 
 public class TemplateBlockConditionDynamicBuilder extends TemplateBlockConditionBuilder {
+    protected final RegexTextWriter writer;
     private final String separator;
     private final String dynamicVariableName;
 
     private int dynamicVariableCounter = 0;
 
-    public TemplateBlockConditionDynamicBuilder(String regex, TextEditorContract editor,
+    public TemplateBlockConditionDynamicBuilder(RegexTextWriter writer, TextEditorContract editor,
                                                 ConditionCheckerContract conditionChecker, String separator,
                                                 String dynamicVariableName) {
-        super(regex, editor, conditionChecker);
+        super(writer, editor, conditionChecker);
+        this.writer = writer;
         this.separator = separator;
         this.dynamicVariableName = dynamicVariableName;
     }
@@ -30,8 +32,8 @@ public class TemplateBlockConditionDynamicBuilder extends TemplateBlockCondition
         }
         var variableName = dynamicVariableName + "_" + dynamicVariableCounter;
         var templatePart = dynamicVariableCounter == 0
-                           ? DefaultRegex.selectorFrom(variableName)
-                           : separator + DefaultRegex.selectorFrom(variableName);
+                           ? writer.createSelector(variableName)
+                           : separator + writer.createSelector(variableName);
         var isAppended = super.tryAppend(templatePart);
         if (!isAppended) {
             return false;

@@ -6,24 +6,31 @@ import template_message_sdk.exceptions.TemplateNullPointException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class RegexTextWriter implements TextWriterContract {
     private final String regex;
     private final Pattern selectorPattern;
+    private final Function<String, String> selectorFactory;
     private Map<String, String> selectors = new HashMap<>();
 
     private String template;
 
-    public RegexTextWriter(String template, String regex) {
+    public RegexTextWriter(String template, String regex,
+                           Function<String, String> selectorFactory) {
         if (template == null) {
             throw new TemplateNullPointException(this);
         }
         if (regex == null) {
             throw new RegexNullPointException(this);
         }
+        if (selectorFactory == null) {
+            throw new NullPointerException("Factory of selectors can not be null! Exception in " + this);
+        }
         this.regex = regex;
-        selectorPattern = Pattern.compile(regex);
+        this.selectorPattern = Pattern.compile(regex);
+        this.selectorFactory = selectorFactory;
         setTemplate(template);
     }
 
@@ -32,8 +39,13 @@ public class RegexTextWriter implements TextWriterContract {
             throw new NullPointerException("Writer can not be null!");
         }
         this.regex = writer.regex;
-        selectorPattern = Pattern.compile(this.regex);
+        this.selectorPattern = Pattern.compile(this.regex);
+        this.selectorFactory = writer.selectorFactory;
         setTemplate(writer.template);
+    }
+
+    public String createSelector(String name) {
+        return selectorFactory.apply(name);
     }
 
     public String getRegex() {

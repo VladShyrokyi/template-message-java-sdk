@@ -6,7 +6,7 @@ import template_message_sdk.editor.TextEditorContract;
 import template_message_sdk.exceptions.TemplateNullPointException;
 import template_message_sdk.exceptions.VariableNameNullPointException;
 import template_message_sdk.exceptions.VariableNullPointException;
-import template_message_sdk.writer.RegexTextWriter;
+import template_message_sdk.writer.TextWriterContract;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,11 +16,11 @@ public class TemplateBlockBuilder {
     protected final LinkedList<String> templateParts = new LinkedList<>();
     protected final Map<String, TextBlockContract> variables = new HashMap<>();
 
-    protected final String regex;
+    protected final TextWriterContract writer;
     protected final TextEditorContract editor;
 
-    public TemplateBlockBuilder(String regex, TextEditorContract editor) {
-        this.regex = regex;
+    public TemplateBlockBuilder(TextWriterContract writer, TextEditorContract editor) {
+        this.writer = writer;
         this.editor = editor;
     }
 
@@ -49,7 +49,8 @@ public class TemplateBlockBuilder {
     }
 
     public TextBlockContract build() {
-        var block = new TemplateBlockImpl(new RegexTextWriter(toCollectTemplate(), regex), editor);
+        writer.setTemplate(writer.getTemplate() + toCollectTemplate());
+        var block = new TemplateBlockImpl(writer, editor);
         variables.forEach(block::putVariable);
         return block;
     }

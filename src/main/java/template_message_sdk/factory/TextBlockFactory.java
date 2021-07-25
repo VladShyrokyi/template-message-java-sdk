@@ -16,7 +16,8 @@ public class TextBlockFactory {
         if (template == null) {
             throw new TemplateNullPointException(TextBlockFactory.class);
         }
-        return new InvariableTextBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
+        return new InvariableTextBlockImpl(
+                new RegexTextWriter(template, DefaultRegex.REGEX, DefaultRegex.SELECTOR_FACTORY), null);
     }
 
     public static TextBlockContract createText(String variable) {
@@ -25,8 +26,9 @@ public class TextBlockFactory {
         }
 
         var block = new TextBlockImpl(new RegexTextWriter(
-                DefaultRegex.selectorFrom(DefaultRegex.DYNAMIC_VARIABLE_NAME),
-                DefaultRegex.REGEX
+                DefaultRegex.SELECTOR_FACTORY.apply(DefaultRegex.DYNAMIC_VARIABLE_NAME),
+                DefaultRegex.REGEX,
+                DefaultRegex.SELECTOR_FACTORY
         ), null);
         block.setVariable(variable);
         return block;
@@ -39,7 +41,8 @@ public class TextBlockFactory {
         if (variables == null) {
             throw new VariableNullPointException(TextBlockFactory.class);
         }
-        var block = new TemplateBlockImpl(new RegexTextWriter(template, DefaultRegex.REGEX), null);
+        var block = new TemplateBlockImpl(
+                new RegexTextWriter(template, DefaultRegex.REGEX, DefaultRegex.SELECTOR_FACTORY), null);
         variables.forEach(block::putVariable);
         return block;
     }
