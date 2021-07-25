@@ -9,7 +9,7 @@ public class TextBlockImpl implements TextBlockContract {
     private TextWriterContract writer;
     private TextEditorContract editor;
 
-    private String variable;
+    private String variable = "";
 
     public TextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
         this.writer = writer;
