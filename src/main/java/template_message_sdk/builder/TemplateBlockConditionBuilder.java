@@ -25,19 +25,28 @@ public class TemplateBlockConditionBuilder extends TemplateBlockBuilder {
 
     @Override
     public void append(String templatePart) {
+        tryAppend(templatePart);
+    }
+
+    @Override
+    public void putVariable(String name, TextBlockContract variable) {
+        tryPutVariable(name, variable);
+    }
+
+    public boolean tryAppend(String templatePart) {
         if (templatePart == null) {
             throw new TemplateNullPointException(this);
         }
         var template = TextBlockFactory.createOnlyTemplate(templatePart);
         if (isNotContinueBuild(template)) {
-            return;
+            return false;
         }
         super.append(templatePart);
         updateIfCan(template);
+        return true;
     }
 
-    @Override
-    public void putVariable(String name, TextBlockContract variable) {
+    public boolean tryPutVariable(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
@@ -45,10 +54,11 @@ public class TemplateBlockConditionBuilder extends TemplateBlockBuilder {
             throw new VariableNullPointException(this);
         }
         if (isNotContinueBuild(variable)) {
-            return;
+            return false;
         }
         super.putVariable(name, variable);
         updateIfCan(variable);
+        return true;
     }
 
     @Override
