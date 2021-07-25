@@ -8,8 +8,8 @@ import template_message_sdk.writer.TextWriterContract;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TemplateBlockImpl implements TextBlockContract, TextBlockHaveVariablesContract<String> {
-    private final Map<String, String> variables = new HashMap<>();
+public class TemplateBlockImpl implements TextBlockContract {
+    private final Map<String, TextBlockContract> variables = new HashMap<>();
 
     private TextWriterContract writer;
     private TextEditorContract editor;
@@ -26,29 +26,28 @@ public class TemplateBlockImpl implements TextBlockContract, TextBlockHaveVariab
         if (block == null) {
             throw new NullPointerException("Block can not be null!");
         }
-        this.writer = block.getWriter().copy();
+        writer = block.getWriter().copy();
         if (block.getEditor() != null) {
-            this.editor = block.getEditor().copy();
+            editor = block.getEditor().copy();
         }
-        block.variables.forEach(this::putVariable);
+        block.variables.forEach((name, variable) -> putVariable(name, variable.copy()));
     }
 
-    @Override
-    public String getVariable(String name) {
+    public TextBlockContract getVariable(String name) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
         return variables.get(name);
     }
 
-    @Override
-    public void putVariable(String name, String variable) {
+    public void putVariable(String name, TextBlockContract variable) {
         if (name == null) {
             throw new VariableNameNullPointException(this);
         }
         if (variable == null) {
             throw new VariableNullPointException(this);
         }
+
         variables.put(name, variable);
     }
 
@@ -79,18 +78,27 @@ public class TemplateBlockImpl implements TextBlockContract, TextBlockHaveVariab
 
     @Override
     public String write() {
+        var stringVariables = new HashMap<String, String>();
+        variables.forEach((name, block) -> stringVariables.put(name, block.write()));
+
         return editor != null
-               ? editor.toEditing(writer.toWriting(Map.copyOf(variables), ""))
-               : writer.toWriting(Map.copyOf(variables), "");
+               ? editor.toEditing(writer.toWriting(stringVariables, ""))
+               : writer.toWriting(stringVariables, "");
     }
 
     @Override
     public String writeWithEditor(TextEditorContract editor) {
-        return editor.toEditing(writer.toWriting(Map.copyOf(variables), ""));
+        var stringVariables = new HashMap<String, String>();
+        variables.forEach((name, block) -> stringVariables.put(name, block.writeWithEditor(editor)));
+
+        return editor.toEditing(writer.toWriting(stringVariables, ""));
     }
 
     @Override
     public String writeWithoutEditor() {
-        return writer.toWriting(Map.copyOf(variables), "");
+        var stringVariables = new HashMap<String, String>();
+        variables.forEach((name, block) -> stringVariables.put(name, block.writeWithoutEditor()));
+
+        return writer.toWriting(stringVariables, "");
     }
 }

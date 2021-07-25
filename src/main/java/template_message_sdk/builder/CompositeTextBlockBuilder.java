@@ -1,6 +1,5 @@
 package template_message_sdk.builder;
 
-import template_message_sdk.block.CompositeTemplateBlockImpl;
 import template_message_sdk.block.TextBlockContract;
 import template_message_sdk.checker.ConditionCheckerContract;
 import template_message_sdk.exceptions.TemplateNullPointException;
@@ -31,7 +30,7 @@ public class CompositeTextBlockBuilder {
         if (templatePart == null) {
             throw new TemplateNullPointException(this);
         }
-        var block = TextBlockFactory.createSimpleEmptyWith(templatePart);
+        var block = TextBlockFactory.createOnlyTemplate(templatePart);
         if (isNotContinueBuild(block)) {
             return this;
         }
@@ -55,8 +54,8 @@ public class CompositeTextBlockBuilder {
         return this;
     }
 
-    public CompositeTemplateBlockImpl build() {
-        return TextBlockFactory.createTemplateWith(collectTemplate(), variables);
+    public TextBlockContract build() {
+        return TextBlockFactory.createTemplate(collectTemplate(), variables);
     }
 
     protected String collectTemplate() {

@@ -8,6 +8,8 @@ import template_message_sdk.exceptions.VariableNameNullPointException;
 import template_message_sdk.exceptions.VariableNullPointException;
 import template_message_sdk.factory.TextBlockFactory;
 
+import java.util.Map;
+
 public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder {
     private final String dynamicVariableName;
     private final String separator;
@@ -62,8 +64,7 @@ public class DynamicCompositeTextBlockBuilder extends CompositeTextBlockBuilder 
         var templatePart = dynamicVariableCounter == 0
                            ? DefaultRegex.createSelector(variableName)
                            : separator + DefaultRegex.createSelector(variableName);
-        var checkedBlock = TextBlockFactory.createTemplateEmptyWith(templatePart);
-        checkedBlock.putVariable(variableName, block);
+        var checkedBlock = TextBlockFactory.createTemplate(templatePart, Map.of(variableName, block));
         if (isNotContinueBuild(checkedBlock)) {
             return this;
         }
