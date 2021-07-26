@@ -1,5 +1,8 @@
 package template_message_sdk.block;
 
+import template_message_sdk.block.interfaces.TextBlockContract;
+import template_message_sdk.block.interfaces.TextBlockExpendableContract;
+import template_message_sdk.block.interfaces.TextBlockWithVariablesContract;
 import template_message_sdk.editor.TextEditorContract;
 import template_message_sdk.exceptions.VariableNameNullPointException;
 import template_message_sdk.exceptions.VariableNullPointException;

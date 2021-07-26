@@ -1,7 +1,7 @@
 package template_message_sdk.builder;
 
 import template_message_sdk.block.TemplateBlockImpl;
-import template_message_sdk.block.TextBlockContract;
+import template_message_sdk.block.interfaces.TextBlockContract;
 import template_message_sdk.editor.TextEditorContract;
 import template_message_sdk.exceptions.TemplateNullPointException;
 import template_message_sdk.exceptions.VariableNameNullPointException;

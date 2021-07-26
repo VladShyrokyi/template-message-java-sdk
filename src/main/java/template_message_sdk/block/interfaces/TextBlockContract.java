@@ -1,4 +1,4 @@
-package template_message_sdk.block;
+package template_message_sdk.block.interfaces;
 
 import template_message_sdk.editor.TextEditorContract;
 import template_message_sdk.writer.TextWriterContract;

@@ -1,4 +1,4 @@
-package template_message_sdk.block;
+package template_message_sdk.block.interfaces;
 
 public interface TextBlockExpendableContract extends TextBlockContract {
     void append(String templatePart);
