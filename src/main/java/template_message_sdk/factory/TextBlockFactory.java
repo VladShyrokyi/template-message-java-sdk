@@ -1,7 +1,7 @@
 package template_message_sdk.factory;
 
 import template_message_sdk.DefaultRegex;
-import template_message_sdk.block.InvariableTextBlockImpl;
+import template_message_sdk.block.InvariantBlockImpl;
 import template_message_sdk.block.TemplateBlockImpl;
 import template_message_sdk.block.TextBlockImpl;
 import template_message_sdk.block.interfaces.TextBlockContract;
@@ -16,7 +16,7 @@ public class TextBlockFactory {
         if (template == null) {
             throw new TemplateNullPointException(TextBlockFactory.class);
         }
-        return new InvariableTextBlockImpl(
+        return new InvariantBlockImpl(
                 new RegexTextWriter(template, DefaultRegex.REGEX, DefaultRegex.SELECTOR_FACTORY), null);
     }
 
