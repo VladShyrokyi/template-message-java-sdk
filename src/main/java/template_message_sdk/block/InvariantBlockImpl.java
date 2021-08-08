@@ -6,11 +6,11 @@ import template_message_sdk.writer.TextWriterContract;
 
 import java.util.Map;
 
-public class InvariableTextBlockImpl implements TextBlockContract {
+public class InvariantBlockImpl implements TextBlockContract {
     private TextWriterContract writer;
     private TextEditorContract editor;
 
-    public InvariableTextBlockImpl(TextWriterContract writer, TextEditorContract editor) {
+    public InvariantBlockImpl(TextWriterContract writer, TextEditorContract editor) {
         if (writer == null) {
             throw new NullPointerException("Writer can not be null!");
         }
@@ -18,7 +18,7 @@ public class InvariableTextBlockImpl implements TextBlockContract {
         this.editor = editor;
     }
 
-    public InvariableTextBlockImpl(InvariableTextBlockImpl block) {
+    public InvariantBlockImpl(InvariantBlockImpl block) {
         if (block == null) {
             throw new NullPointerException("Block can not be null!");
         }
@@ -51,7 +51,7 @@ public class InvariableTextBlockImpl implements TextBlockContract {
 
     @Override
     public TextBlockContract copy() {
-        return new InvariableTextBlockImpl(this);
+        return new InvariantBlockImpl(this);
     }
 
     @Override
