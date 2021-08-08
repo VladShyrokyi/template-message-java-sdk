@@ -49,6 +49,8 @@ public class TemplateBlockBuilder {
     }
 
     public TextBlockContract build() {
+        var writer = this.writer.copy();
+        var editor = this.editor.copy();
         writer.setTemplate(writer.getTemplate() + toCollectTemplate());
         var block = new TemplateBlockImpl(writer, editor);
         variables.forEach(block::putVariable);
