@@ -1,4 +1,4 @@
-package template_message_sdk.writer;
+package org.vlad_shyrokyi.template_message_sdk.writer;
 
 import java.util.Map;
 

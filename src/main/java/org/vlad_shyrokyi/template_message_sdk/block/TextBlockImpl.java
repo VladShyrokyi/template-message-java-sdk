@@ -1,8 +1,8 @@
-package template_message_sdk.block;
+package org.vlad_shyrokyi.template_message_sdk.block;
 
-import template_message_sdk.block.interfaces.TextBlockContract;
-import template_message_sdk.editor.TextEditorContract;
-import template_message_sdk.writer.TextWriterContract;
+import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
+import org.vlad_shyrokyi.template_message_sdk.editor.TextEditorContract;
+import org.vlad_shyrokyi.template_message_sdk.writer.TextWriterContract;
 
 import java.util.Map;
 

@@ -1,13 +1,13 @@
-package template_message_sdk.factory;
+package org.vlad_shyrokyi.template_message_sdk.factory;
 
-import template_message_sdk.DefaultRegex;
-import template_message_sdk.block.InvariantBlockImpl;
-import template_message_sdk.block.TemplateBlockImpl;
-import template_message_sdk.block.TextBlockImpl;
-import template_message_sdk.block.interfaces.TextBlockContract;
-import template_message_sdk.exceptions.TemplateNullPointException;
-import template_message_sdk.exceptions.VariableNullPointException;
-import template_message_sdk.writer.RegexTextWriter;
+import org.vlad_shyrokyi.template_message_sdk.DefaultRegex;
+import org.vlad_shyrokyi.template_message_sdk.block.InvariantBlockImpl;
+import org.vlad_shyrokyi.template_message_sdk.block.TemplateBlockImpl;
+import org.vlad_shyrokyi.template_message_sdk.block.TextBlockImpl;
+import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
+import org.vlad_shyrokyi.template_message_sdk.exceptions.TemplateNullPointException;
+import org.vlad_shyrokyi.template_message_sdk.exceptions.VariableNullPointException;
+import org.vlad_shyrokyi.template_message_sdk.writer.RegexTextWriter;
 
 import java.util.Map;
 

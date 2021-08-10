@@ -1,7 +1,7 @@
-package template_message_sdk.writer;
+package org.vlad_shyrokyi.template_message_sdk.writer;
 
-import template_message_sdk.exceptions.RegexNullPointException;
-import template_message_sdk.exceptions.TemplateNullPointException;
+import org.vlad_shyrokyi.template_message_sdk.exceptions.RegexNullPointException;
+import org.vlad_shyrokyi.template_message_sdk.exceptions.TemplateNullPointException;
 
 import java.util.HashMap;
 import java.util.Map;
