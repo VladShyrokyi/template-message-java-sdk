@@ -1,6 +1,6 @@
-##How add package to your project?
+## How add package to your project?
 
-###Maven
+### Maven
 ```xml
 <dependency>
   <groupId>io.github.vladshyrokyi</groupId>
@@ -9,7 +9,7 @@
 </dependency>
 ```
 
-###Gradle
+### Gradle
 ```groovy
 repositories {
     mavenCentral()
