@@ -1,39 +1,81 @@
 plugins {
     id 'java'
-    id 'maven-publish'
+    id 'maven'
+    id 'signing'
 }
 
-group 'org.vlad_shyrokyi'
-version '1.0-SNAPSHOT'
+group = 'io.github.vladshyrokyi'
+archivesBaseName = 'template-message-sdk'
+version = '1.0'
 
 jar.enabled = true
 
-task sourceJar(type: Jar) {
+task javadocJar(type: Jar) {
+    classifier "javadoc"
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
     classifier "sources"
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
-
 test {
     useJUnitPlatform()
 }
 
-publishing {
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
     repositories {
-        mavenCentral()
-    }
-    publications({
-        maven(MavenPublication) {
-            artifactId jar.baseName
-            artifact sourceJar
-            from components.java
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Template message sdk'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Allows you to compose text templates from blocks. Each block has a writer and editor to customize the writing.\n'
+                url 'https://github.com/VladShyrokyi/template-message-java-sdk'
+
+                scm {
+                    connection 'scm:git:git://github.com/VladShyrokyi/template-message-java-sdk.git'
+                    developerConnection 'scm:git:ssh://github.com/VladShyrokyi/template-message-java-sdk.git'
+                    url 'https://github.com/VladShyrokyi/template-message-java-sdk'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'shyrokyi_v'
+                        name 'Vladislav Shyrokyi'
+                        email 'vlad16062001@gmail.com'
+                    }
+                }
+            }
         }
-    })
+    }
 }
