@@ -1,4 +1,4 @@
-package org.vlad_shyrokyi.template_message_sdk.block.interfaces;
+package io.github.vladshyrokyi.template_message_sdk.block.interfaces;
 
 public interface TextBlockWithVariablesContract extends TextBlockContract {
     TextBlockContract getVariable(String name);

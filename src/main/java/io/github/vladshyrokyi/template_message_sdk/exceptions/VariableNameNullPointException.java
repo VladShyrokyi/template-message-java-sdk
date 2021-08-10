@@ -1,4 +1,4 @@
-package org.vlad_shyrokyi.template_message_sdk.exceptions;
+package io.github.vladshyrokyi.template_message_sdk.exceptions;
 
 public class VariableNameNullPointException extends NullPointerException {
     public VariableNameNullPointException(Object context) {

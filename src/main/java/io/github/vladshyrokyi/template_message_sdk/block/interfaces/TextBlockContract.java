@@ -1,7 +1,7 @@
-package org.vlad_shyrokyi.template_message_sdk.block.interfaces;
+package io.github.vladshyrokyi.template_message_sdk.block.interfaces;
 
-import org.vlad_shyrokyi.template_message_sdk.editor.TextEditorContract;
-import org.vlad_shyrokyi.template_message_sdk.writer.TextWriterContract;
+import io.github.vladshyrokyi.template_message_sdk.editor.TextEditorContract;
+import io.github.vladshyrokyi.template_message_sdk.writer.TextWriterContract;
 
 public interface TextBlockContract {
     TextWriterContract getWriter();

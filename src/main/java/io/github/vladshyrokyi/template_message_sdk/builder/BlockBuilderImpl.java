@@ -1,10 +1,10 @@
-package org.vlad_shyrokyi.template_message_sdk.builder;
+package io.github.vladshyrokyi.template_message_sdk.builder;
 
-import org.vlad_shyrokyi.template_message_sdk.block.TemplateBlockImpl;
-import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
-import org.vlad_shyrokyi.template_message_sdk.editor.TextEditorContract;
-import org.vlad_shyrokyi.template_message_sdk.exceptions.VariableNullPointException;
-import org.vlad_shyrokyi.template_message_sdk.writer.RegexTextWriter;
+import io.github.vladshyrokyi.template_message_sdk.block.TemplateBlockImpl;
+import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
+import io.github.vladshyrokyi.template_message_sdk.editor.TextEditorContract;
+import io.github.vladshyrokyi.template_message_sdk.exceptions.VariableNullPointException;
+import io.github.vladshyrokyi.template_message_sdk.writer.RegexTextWriter;
 
 import java.util.HashMap;
 import java.util.LinkedList;

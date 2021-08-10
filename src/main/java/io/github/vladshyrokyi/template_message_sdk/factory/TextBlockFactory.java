@@ -1,13 +1,13 @@
-package org.vlad_shyrokyi.template_message_sdk.factory;
+package io.github.vladshyrokyi.template_message_sdk.factory;
 
-import org.vlad_shyrokyi.template_message_sdk.DefaultRegex;
-import org.vlad_shyrokyi.template_message_sdk.block.InvariantBlockImpl;
-import org.vlad_shyrokyi.template_message_sdk.block.TemplateBlockImpl;
-import org.vlad_shyrokyi.template_message_sdk.block.TextBlockImpl;
-import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
-import org.vlad_shyrokyi.template_message_sdk.exceptions.TemplateNullPointException;
-import org.vlad_shyrokyi.template_message_sdk.exceptions.VariableNullPointException;
-import org.vlad_shyrokyi.template_message_sdk.writer.RegexTextWriter;
+import io.github.vladshyrokyi.template_message_sdk.DefaultRegex;
+import io.github.vladshyrokyi.template_message_sdk.block.InvariantBlockImpl;
+import io.github.vladshyrokyi.template_message_sdk.block.TemplateBlockImpl;
+import io.github.vladshyrokyi.template_message_sdk.block.TextBlockImpl;
+import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
+import io.github.vladshyrokyi.template_message_sdk.exceptions.TemplateNullPointException;
+import io.github.vladshyrokyi.template_message_sdk.exceptions.VariableNullPointException;
+import io.github.vladshyrokyi.template_message_sdk.writer.RegexTextWriter;
 
 import java.util.Map;
 

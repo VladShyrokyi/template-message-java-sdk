@@ -1,12 +1,12 @@
-package org.vlad_shyrokyi.template_message_sdk.block;
+package io.github.vladshyrokyi.template_message_sdk.block;
 
-import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
-import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockExpendableContract;
-import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockWithVariablesContract;
-import org.vlad_shyrokyi.template_message_sdk.editor.TextEditorContract;
-import org.vlad_shyrokyi.template_message_sdk.exceptions.VariableNameNullPointException;
-import org.vlad_shyrokyi.template_message_sdk.exceptions.VariableNullPointException;
-import org.vlad_shyrokyi.template_message_sdk.writer.TextWriterContract;
+import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
+import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockExpendableContract;
+import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockWithVariablesContract;
+import io.github.vladshyrokyi.template_message_sdk.editor.TextEditorContract;
+import io.github.vladshyrokyi.template_message_sdk.writer.TextWriterContract;
+import io.github.vladshyrokyi.template_message_sdk.exceptions.VariableNameNullPointException;
+import io.github.vladshyrokyi.template_message_sdk.exceptions.VariableNullPointException;
 
 import java.util.HashMap;
 import java.util.Map;
