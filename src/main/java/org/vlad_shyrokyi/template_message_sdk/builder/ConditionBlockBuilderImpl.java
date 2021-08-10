@@ -1,11 +1,11 @@
-package template_message_sdk.builder;
+package org.vlad_shyrokyi.template_message_sdk.builder;
 
-import template_message_sdk.block.InvariantBlockImpl;
-import template_message_sdk.block.interfaces.TextBlockContract;
-import template_message_sdk.checker.ConditionCheckerContract;
-import template_message_sdk.editor.TextEditorContract;
-import template_message_sdk.exceptions.VariableNullPointException;
-import template_message_sdk.writer.RegexTextWriter;
+import org.vlad_shyrokyi.template_message_sdk.block.InvariantBlockImpl;
+import org.vlad_shyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
+import org.vlad_shyrokyi.template_message_sdk.checker.ConditionCheckerContract;
+import org.vlad_shyrokyi.template_message_sdk.editor.TextEditorContract;
+import org.vlad_shyrokyi.template_message_sdk.exceptions.VariableNullPointException;
+import org.vlad_shyrokyi.template_message_sdk.writer.RegexTextWriter;
 
 public class ConditionBlockBuilderImpl extends BlockBuilderImpl {
     protected final ConditionCheckerContract conditionChecker;

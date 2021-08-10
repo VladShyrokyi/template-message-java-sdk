@@ -1,4 +1,4 @@
-package template_message_sdk.exceptions;
+package org.vlad_shyrokyi.template_message_sdk.exceptions;
 
 public class RegexNullPointException extends NullPointerException {
     public RegexNullPointException(Object context) {

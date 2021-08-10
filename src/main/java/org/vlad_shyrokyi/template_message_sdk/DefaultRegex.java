@@ -1,4 +1,4 @@
-package template_message_sdk;
+package org.vlad_shyrokyi.template_message_sdk;
 
 import java.util.function.Function;
 
