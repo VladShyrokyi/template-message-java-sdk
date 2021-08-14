@@ -2,7 +2,6 @@
 
 ### Maven
 ```xml
-
 <dependency>
     <groupId>io.github.vladshyrokyi</groupId>
     <artifactId>template-message-sdk</artifactId>
@@ -12,10 +11,5 @@
 
 ### Gradle
 ```groovy
-repositories {
-    mavenCentral()
-}
-dependencies {
-    compile 'io.github.vladshyrokyi:template-message-sdk:1.1'
-}
+implementation 'io.github.vladshyrokyi:template-message-sdk:1.1'
 ```
