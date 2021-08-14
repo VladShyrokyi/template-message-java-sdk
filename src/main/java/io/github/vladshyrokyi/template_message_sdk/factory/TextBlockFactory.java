@@ -47,6 +47,10 @@ public class TextBlockFactory {
     }
 
     public static TextBlockContract mergeTemplates(String separator, TextBlockContract... variables) {
+        return mergeTemplates(separator, variables);
+    }
+
+    public static TextBlockContract mergeTemplates(String separator, Iterable<TextBlockContract> variables) {
         var builder = new BlockBuilderImpl(separator, DefaultRegex.DYNAMIC_VARIABLE_NAME);
         for (var block : variables) {
             builder.append(block);
