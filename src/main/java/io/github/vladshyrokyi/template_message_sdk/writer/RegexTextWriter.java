@@ -4,6 +4,7 @@ import io.github.vladshyrokyi.template_message_sdk.exceptions.RegexNullPointExce
 import io.github.vladshyrokyi.template_message_sdk.exceptions.TemplateNullPointException;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -53,7 +54,7 @@ public class RegexTextWriter implements TextWriterContract {
     }
 
     public Set<String> getSelectors() {
-        return Set.copyOf(selectors.keySet());
+        return new HashSet<>(selectors.keySet());
     }
 
     @Override
@@ -90,7 +91,7 @@ public class RegexTextWriter implements TextWriterContract {
             }
 
             var selector = selectors.get(name);
-            result = result.replaceAll(selector, variable);
+            result = result.replace(selector, variable);
             selectorNames.remove(name);
         }
 
@@ -101,7 +102,7 @@ public class RegexTextWriter implements TextWriterContract {
         // Replace selectors on default value
         for (String name : selectorNames) {
             var selector = selectors.get(name);
-            result = result.replaceAll(selector, defaultValue);
+            result = result.replace(selector, defaultValue);
         }
 
         return result;
