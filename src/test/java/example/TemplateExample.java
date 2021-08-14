@@ -58,15 +58,15 @@ public class TemplateExample {
                 this.price = price;
             }
         }
-        Function<Order, TextBlockContract> orderFactory = order ->
-                TextBlockFactory.createTemplate("%[NUMBER]%. %[ITEM]% %[COUNT]%x%[PRICE]% $",
-                                                Map.of(
-                                                        "NUMBER", TextBlockFactory.createText(order.number.toString()),
-                                                        "ITEM", TextBlockFactory.createText(order.item),
-                                                        "COUNT", TextBlockFactory.createText(order.count.toString()),
-                                                        "PRICE", TextBlockFactory.createText(order.price.toString())
-                                                )
-                );
+        Function<Order, TextBlockContract> orderFactory = order -> TextBlockFactory.createTemplate(
+                "%[NUMBER]%. %[ITEM]% %[COUNT]%x%[PRICE]% $",
+                Map.of(
+                        "NUMBER", TextBlockFactory.createText(order.number.toString()),
+                        "ITEM", TextBlockFactory.createText(order.item),
+                        "COUNT", TextBlockFactory.createText(order.count.toString()),
+                        "PRICE", TextBlockFactory.createText(order.price.toString())
+                )
+        );
         var orders = List.of(
                 new Order(1, "Chair", 1, 25),
                 new Order(2, "Table", 1, 50),
@@ -84,9 +84,9 @@ public class TemplateExample {
                 Map.of(
                         "ORDER_NUMBER", TextBlockFactory.createText("13"),
                         "ORDER_CONFIGURATION", orderConfiguration,
-                        "ORDERS", TextBlockFactory.mergeTemplates("\n", orders.stream()
-                                                                              .map(orderFactory)
-                                                                              .collect(Collectors.toList())
+                        "ORDERS", TextBlockFactory.mergeTemplates(
+                                "\n",
+                                orders.stream().map(orderFactory).collect(Collectors.toList())
                         ),
                         "CHECK", TextBlockFactory.createTemplate(
                                 "Discount: %[DISCOUNT]% $\n" +
@@ -96,10 +96,10 @@ public class TemplateExample {
                                         "DISCOUNT", TextBlockFactory.createText(Integer.toString(discount)),
                                         "SHIPPING_COST", TextBlockFactory.createText(shippingCost.toString()),
                                         "TOTAL_AMOUNT", TextBlockFactory.createText(Integer.toString(
-                                                orders.stream().reduce(0,
-                                                                       (integer, order) -> integer
-                                                                                           + order.price * order.count,
-                                                                       Integer::sum
+                                                orders.stream().reduce(
+                                                        0,
+                                                        (integer, order) -> integer + order.price * order.count,
+                                                        Integer::sum
                                                 )
                                                 + shippingCost - discount
                                         ))
