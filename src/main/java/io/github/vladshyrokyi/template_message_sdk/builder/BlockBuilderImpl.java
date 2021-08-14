@@ -1,5 +1,6 @@
 package io.github.vladshyrokyi.template_message_sdk.builder;
 
+import io.github.vladshyrokyi.template_message_sdk.DefaultRegex;
 import io.github.vladshyrokyi.template_message_sdk.block.TemplateBlockImpl;
 import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
 import io.github.vladshyrokyi.template_message_sdk.editor.TextEditorContract;
@@ -27,6 +28,12 @@ public class BlockBuilderImpl implements BlockBuilderContract {
         this.dynamicVariableName = dynamicVariableName;
         this.writer = writer;
         this.editor = editor;
+    }
+
+    public BlockBuilderImpl(String separator, String dynamicVariableName) {
+        this(separator, dynamicVariableName, new RegexTextWriter("", DefaultRegex.REGEX, DefaultRegex.SELECTOR_FACTORY),
+             null
+        );
     }
 
     @Override
