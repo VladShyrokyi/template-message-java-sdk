@@ -161,11 +161,11 @@ Assertions.assertEquals(block.write(),result);
 <dependency>
     <groupId>io.github.vladshyrokyi</groupId>
     <artifactId>template-message-sdk</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
 
 ### Gradle
 ```groovy
-implementation 'io.github.vladshyrokyi:template-message-sdk:1.1'
+implementation 'io.github.vladshyrokyi:template-message-sdk:1.2'
 ```

@@ -10,7 +10,7 @@ repositories {
 
 group = 'io.github.vladshyrokyi'
 archivesBaseName = 'template-message-sdk'
-version = '1.1'
+version = '1.2'
 
 jar.enabled = true
 
