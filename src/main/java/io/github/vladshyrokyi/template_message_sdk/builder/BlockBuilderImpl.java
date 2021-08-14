@@ -6,6 +6,7 @@ import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockCon
 import io.github.vladshyrokyi.template_message_sdk.editor.TextEditorContract;
 import io.github.vladshyrokyi.template_message_sdk.exceptions.VariableNullPointException;
 import io.github.vladshyrokyi.template_message_sdk.writer.RegexTextWriter;
+import io.github.vladshyrokyi.template_message_sdk.writer.TextWriterContract;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -54,7 +55,15 @@ public class BlockBuilderImpl implements BlockBuilderContract {
 
     @Override
     public TextBlockContract build() {
-        var block = new TemplateBlockImpl(writer.copy(), editor.copy());
+        TextWriterContract writer = null;
+        if (this.writer != null) {
+            writer = this.writer.copy();
+        }
+        TextEditorContract editor = null;
+        if (this.editor != null) {
+            editor = this.editor.copy();
+        }
+        var block = new TemplateBlockImpl(writer, editor);
         variables.forEach(variableName -> {
             block.append(variableTemplateParts.get(variableName));
             block.putVariable(variableName, variableValues.get(variableName).copy());
