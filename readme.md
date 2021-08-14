@@ -1,4 +1,4 @@
-Message template sdk
+Message template sdk [![Maven Central](https://img.shields.io/maven-central/v/io.github.vladshyrokyi/template-message-sdk)](https://search.maven.org/artifact/io.github.vladshyrokyi/template-message-sdk) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/VladShyrokyi/template-message-java-sdk)](https://github.com/VladShyrokyi/template-message-java-sdk)
 ====
 
 # Overview
