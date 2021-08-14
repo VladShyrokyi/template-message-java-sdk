@@ -5,6 +5,7 @@ import io.github.vladshyrokyi.template_message_sdk.block.InvariantBlockImpl;
 import io.github.vladshyrokyi.template_message_sdk.block.TemplateBlockImpl;
 import io.github.vladshyrokyi.template_message_sdk.block.TextBlockImpl;
 import io.github.vladshyrokyi.template_message_sdk.block.interfaces.TextBlockContract;
+import io.github.vladshyrokyi.template_message_sdk.builder.BlockBuilderImpl;
 import io.github.vladshyrokyi.template_message_sdk.exceptions.TemplateNullPointException;
 import io.github.vladshyrokyi.template_message_sdk.exceptions.VariableNullPointException;
 import io.github.vladshyrokyi.template_message_sdk.writer.RegexTextWriter;
@@ -43,5 +44,13 @@ public class TextBlockFactory {
                 new RegexTextWriter(template, DefaultRegex.REGEX, DefaultRegex.SELECTOR_FACTORY), null);
         variables.forEach(block::putVariable);
         return block;
+    }
+
+    public static TextBlockContract mergeTemplates(String separator, TextBlockContract... variables) {
+        var builder = new BlockBuilderImpl(separator, DefaultRegex.DYNAMIC_VARIABLE_NAME);
+        for (var block : variables) {
+            builder.append(block);
+        }
+        return builder.build();
     }
 }
